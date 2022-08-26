@@ -1,0 +1,128 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+
+    <div class="row">
+        <div class="col-md-12">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CostBreakdown.Description" class="control-label"></label>
+                <textarea asp-for="CostBreakdown.Description" class="form-control" rows="3" cols="80"></textarea>
+                <span asp-validation-for="CostBreakdown.Description" class="text-danger"></span>
+            </div>
+        </div>
+        <input type="hidden" asp-for="CostBreakdown.ID" />
+        <input type="hidden" asp-for="CostBreakdown.BudgetBookCommitmentsID" />
+    </div>
+
+    <div id="floatingExRate" class="row">
+        <div class="col-md-3 form-group">
+            <label asp-for="CostBreakdown.CurrenciesID" class="control-label"></label>
+            <select id="ddlCurrency" asp-for="CostBreakdown.CurrenciesID" class="form-control" asp-items='@(new SelectList(@ViewBag.Currency, "ID", "CurrencyName"))'></select>
+            <span asp-validation-for="CostBreakdown.CurrenciesID" class="text-danger"></span>
+        </div>
+        <div class="col-md-3 form-group">
+            <label asp-for="CostBreakdown.Quantity" class="control-label"></label>
+            <input asp-for="CostBreakdown.Quantity" onkeydown="return isNumberKey(event, this)" class="form-control" />
+            <span asp-validation-for="CostBreakdown.Quantity" class="text-danger"></span>
+        </div>
+        <div class="col-md-3 form-group">
+            <label asp-for="CostBreakdown.Rate" class="control-label"></label>
+            <input asp-for="CostBreakdown.Rate" onkeydown="return isNumberKey(event, this)" class="form-control" />
+            <span asp-validation-for="CostBreakdown.Rate" class="text-danger"></span>
+        </div>
+        <div id="HideShow2" class="col-md-3 form-group">
+            <label asp-for="CostBreakdown.FixedExchangeRate" class="control-label"></label>(&#8358;)
+            <input asp-for="CostBreakdown.FixedExchangeRate" class="form-control" />
+            <span asp-validation-for="CostBreakdown.FixedExchangeRate" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div id="Instruction" class="row">
+        <div class="col-md-12 form-group">
+            <label class="control-label" style="color:red; font-style:italic">
+                Note: Fixed exchange rate only to be used where contract specifies a fixed exchange rate for payment of service rendered or material delivered
+            </label>
+        </div>
+    </div>
+
+
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.ID" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.Activity" />
+
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.Comitmntno" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.CapexOpexID" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.CapexOpex" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.DirectAllocated" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.sDirectAllocated" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.UapCodeID" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.UapCode" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.UapRollUpCodeID" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.UapRollUpCode" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.ActivityTypeID" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.ActivityType" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.ActivityCodeID" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.ActivityCode" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.wbsID" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.CostObject" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.ActivityID" />
+
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.FocalPointID" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.FocalPoint" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.ActivityOwnerID" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.ActivityOwner" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.SponsorID" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.Sponsor" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.ScopeID" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.Scope" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.ContractID" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.Contract" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.BudgetBasisID" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.BudgetBasis" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.OPYearBudgetFDollar" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.NAPIMSBUDGETFDollar" />
+
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.BudgetBookID" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.ApprovalID" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.ApprovalComment" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.ApproverID" />
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.Savings" />
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#HideShow2').hide();
+        $('#Instruction').hide();
+
+        var FixedExchangeRateColumn = $('#HideShow2');
+        var CurrencyType = $('#ddlCurrency').text();
+        if (CurrencyType.toUpperCase() == 'Naira'.toUpperCase()) {
+            FixedExchangeRateColumn.show();
+            $('#Instruction').show();
+        }
+        else {
+            FixedExchangeRateColumn.hide();
+            $('#Instruction').hide();
+        }
+
+
+        $('#ddlCurrency').change(function (event) {
+            var FixedExchangeRateColumn = $('#HideShow2');
+            //var IdCurrency = $(this).children("option:selected").val();
+            var CurrencyType = $(this).children("option:selected").text();
+
+            if (CurrencyType.toUpperCase() == 'Naira'.toUpperCase()) {
+                FixedExchangeRateColumn.show();
+                $('#Instruction').show();
+            }
+            else {
+                FixedExchangeRateColumn.hide();
+                $('#Instruction').hide();
+            }
+        });
+    });
+
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

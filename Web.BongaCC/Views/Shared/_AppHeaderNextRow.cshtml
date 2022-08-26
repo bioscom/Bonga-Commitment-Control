@@ -1,0 +1,184 @@
+﻿@using EF.BongaCC.Core.Model;
+@using EF.BongaCC.Data;
+@using Web.BongaCC.ViewModels;
+@using EF.BongaCC.Data.Repository;
+@using Web.BongaCC.Codes;
+
+@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+@inject IRepository<AppUsers> repoUsers;
+
+@{
+    string UserMail = Apps.getFullEmail(User.Identity.Name);
+    AppUsers LoginUser = repoUsers.GetAll().Result.Where(c => c.UserMail.ToLower().Trim() == UserMail.ToLower().Trim()).FirstOrDefault();
+}
+
+<div class="container-fluid row" style="margin-top:0.5em; border-bottom:1px solid silver">
+    <div class="col-sm-2" style="text-align:center">
+        @if (User.Identity.IsAuthenticated)
+        {
+            if ((LoginUser.RoleId == (int)enuRole.FocalPoint) || (LoginUser.RoleId == (int)enuRole.Admin))
+            {
+                if ((DateTime.Today.DayOfWeek == DayOfWeek.Monday && DateTime.Now.Hour > 11) ||
+                    (DateTime.Today.DayOfWeek == DayOfWeek.Tuesday) ||
+                    (DateTime.Today.DayOfWeek == DayOfWeek.Wednesday) ||
+                    (DateTime.Today.DayOfWeek == DayOfWeek.Thursday) ||
+                    (DateTime.Today.DayOfWeek == DayOfWeek.Friday && DateTime.Now.Hour <= 16))
+                {
+                    <a class="btn-link btn-primary" href="/Commitments/BudgetBook/">
+                        <button style="margin-bottom:10px;" type="button" class="btn btn-danger btn-sm rounded-0"><i class="fa fa-plus-circle"></i>+ Add New Commitment</button>
+                    </a>
+                }
+            }
+        }
+
+        @*@if ((DateTime.Today.DayOfWeek == DayOfWeek.Monday && DateTime.Now.Hour > 11) ||
+                   (DateTime.Today.DayOfWeek == DayOfWeek.Tuesday) ||
+                   (DateTime.Today.DayOfWeek == DayOfWeek.Wednesday) ||
+                   (DateTime.Today.DayOfWeek == DayOfWeek.Thursday) ||
+                   (DateTime.Today.DayOfWeek == DayOfWeek.Friday && DateTime.Now.Hour <= 16))
+        {
+            <a class="btn-link btn-primary" href="/Commitments/BudgetBook/">
+                <button style="margin-bottom:10px;" type="button" class="btn btn-danger btn-sm rounded-0"><i class="fa fa-plus-circle"></i>+ Add New Commitment</button>
+            </a>
+        }*@
+    </div>
+
+    <div class="col-sm-7 pull-left">
+        <form>
+            <div class="form-group row">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </span>
+                    <div class="form-control">
+                        <input id="Commitments" type="text" placeholder="Search for commitment..." />
+                    </div>
+
+
+
+                    @*<div id="details" class="row"></div><div>*@
+                    @*<input id="txtCustomer" class="form-control" type="text" name="CustomerName" autocomplete="off" style="width:300px" />*@
+                    <input type="hidden" id="hfCustomer" name="CustomerId" />
+                    @*<br />
+                    <input type="submit" id="btnSubmit" value="Submit" />
+                    <br />
+                    <br />*@
+
+
+
+                    @*</div><select id="ddlCloneCommitment" asp-for="oBudgetBookCommitment.ID" class="form-control selectpicker" data-live-search="true" asp-items="ViewBag.commitmentsID">
+            <option value="-1" disabled selected>Search for commitment...</option>
+        </select>*@
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-sm-3 pull-right">
+        @*Source: Naira Sign https://graphemica.com/%E2%82%A6*@
+        <b>Monthly Exchange Rate: </b> <b style="color:darkred; text-underline-position:below">&#8358;@Html.DisplayFor(model => model.ExchangeRate.FloatingExchangeRate) - $1 [@System.Globalization.DateTimeFormatInfo.CurrentInfo.GetMonthName(Model.ExchangeRate.MMonth)]</b>
+    </div>
+</div>
+
+<script>
+    //TODO: Source: https://stackoverflow.com/questions/4078553/ajax-call-on-onchange-event-in-mvc
+    //https://weblog.west-wind.com/posts/2016/sep/14/bootstrap-modal-dialog-showing-under-modal-background
+    $("#ddlCloneCommitment").change( function (event) {
+        var mymodal = $("#DetailsViewModal");
+        $.ajax({
+            url: '/Commitments/ViewCommitmentDetails/' + $(this).val(), 
+            success: function (data) {
+                $('#DetailsViewModalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+                mymodal.appendTo("body"); 
+            }
+        });
+    });
+
+
+    //$(function () {
+    //    $("#Commitments").typeahead({
+    //        hint: true,
+    //        highlight: true,
+    //        minLength: 3,
+    //        source: function (request, response) {
+    //            $.ajax({
+    //                url: '/Commitments/GetCommitments/' + request,
+    //                //data: "{ 'prefix': '" + request + "'}",
+    //                //data: {
+    //                //    "name": request
+    //                //},
+    //                dataType: "json",
+    //                type: "POST",
+    //                contentType: "application/json; charset=utf-8",
+    //                success: function (data) {
+    //                    items = [];
+    //                    map = {};
+    //                    $.each(data, function (i, item) {
+    //                        var id = item.val;
+    //                        var name = item.label;
+    //                        map[name] = { id: id, name: name };
+    //                        items.push(name);
+    //                    });
+    //                    response(items);
+    //                    $(".dropdown-menu").css("height", "auto");
+    //                },
+    //                error: function (response) {
+    //                    alert(response.responseText);
+    //                },
+    //                failure: function (response) {
+    //                    alert(response.responseText);
+    //                }
+    //            });
+    //        },
+    //        updater: function (item) {
+    //            $('#hfCustomer').val(map[item].id);
+    //            return item;
+    //        }
+    //    });
+    //});
+
+    //https://www.c-sharpcorner.com/article/autocomplete-textbox-using-typeahead-js-in-asp-net-mvc/
+    $(document).ready(function () {
+        $("#Commitments").typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1,
+            source: function (request, response) {
+                $.ajax({
+                    //url: "/Home/GetList/",
+                    url: '/Commitments/GetCommitments/',
+                    data: {
+                        "name": request
+                    },
+                    type: "GET",
+                    contentType: "json",
+                    success: function (data) {
+                        //alert("I was here");
+                        items = [];
+                        map = {};
+                        $.each(data, function (i, item) {
+                            var id = item.ID;
+                            var name = item.Name;
+                            map[name] = {
+                                id: id,
+                                name: name
+                            };
+                            items.push(name);
+                        });
+                        response(items);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            //updater: function (item) { If simultaneously want to update value somewhere else $("#update").val(map[item].id); return item;} 
+        });
+    });
+
+
+</script>

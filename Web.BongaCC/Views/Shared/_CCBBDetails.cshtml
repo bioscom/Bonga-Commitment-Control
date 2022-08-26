@@ -1,0 +1,137 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+@using Web.BongaCC.Codes;
+
+<input type="hidden" asp-for="@Model.oBudgetBook.ID" />
+<input type="hidden" asp-for="@Model.oBudgetBook.ActivityCodeID" />
+
+@if (Model.oBudgetBook != null)
+{
+    <dl class="dl-horizontal col-md-12">
+        <dt>
+            @Html.DisplayNameFor(model => model.oBudgetBook.CapexOpex):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.oBudgetBook.CapexOpex)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.oBudgetBook.sDirectAllocated):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.oBudgetBook.sDirectAllocated)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.oBudgetBook.UapCode):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.oBudgetBook.UapCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.oBudgetBook.UapRollUpCode):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.oBudgetBook.UapRollUpCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.oBudgetBook.ActivityType):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.oBudgetBook.ActivityType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.oBudgetBook.ActivityCode):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.oBudgetBook.ActivityCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.oBudgetBook.CostObject):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.oBudgetBook.CostObject)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.oBudgetBook.Activity):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.oBudgetBook.Activity)
+        </dd>
+
+        <dt></dt>
+        <dd><hr /></dd>
+
+        @if (Model.oBudgetBookCommitment != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.oBudgetBookCommitment.FocalPoint):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.oBudgetBookCommitment.FocalPoint)
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.oBudgetBook.ActivityOwner):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.oBudgetBook.ActivityOwner)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.oBudgetBook.ActivityCodeLineManager):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.oBudgetBook.ActivityCodeLineManager)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.oBudgetBook.Sponsor):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.oBudgetBook.Sponsor)
+        </dd>
+        <dt></dt>
+        <dd><hr /></dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.oBudgetBook.Scope):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.oBudgetBook.Scope)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.oBudgetBook.Contract):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.oBudgetBook.Contract)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.oBudgetBook.BudgetBasis):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.oBudgetBook.BudgetBasis)
+        </dd>
+        @*<dt>
+                @Html.DisplayNameFor(model => model.oBudgetBook.OPYearBudgetFDollar):
+            </dt>
+            <dd>
+                @string.Format("{0:N}", Model.oBudgetBook.OPYearBudgetFDollar)
+            </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.oBudgetBook.NAPIMSBUDGETFDollar):
+        </dt>
+        <dd>
+            @{
+                var NAPIMSBal = 0.0M;
+                var totalSum = 0.00M;
+
+                @if (Model.lstTotalCostBreakdown != null)
+                {
+                    totalSum = Convert.ToDecimal(Model.lstTotalCostBreakdown.Sum(o => o.Calculated));
+                }
+                //NAPIMSBal = Convert.ToDecimal(Model.oBudgetBook.NAPIMSBUDGETFDollar - totalSum);
+                NAPIMSBal = Convert.ToDecimal(Model.oBudgetBook.NAPIMSBUDGETFDollar);
+            }
+
+            <b style="color:green">@string.Format("{0:N}", NAPIMSBal)</b>
+        </dd>
+    </dl>
+}

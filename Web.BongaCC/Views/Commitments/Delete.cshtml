@@ -1,0 +1,243 @@
+﻿@model EF.BongaCC.Core.Model.Commitments
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Commitments</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TeamIndicator)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TeamIndicator)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CapexOpex)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CapexOpex)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PRNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PRNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PRValue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PRValue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PONumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PONumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.POValue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.POValue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.comitmntno)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.comitmntno)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.commitment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.commitment)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.justification)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.justification)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.threat)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.threat)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.contractnovendor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.contractnovendor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.periodfrom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.periodfrom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.periodto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.periodto)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.previous)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.previous)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.napimsNaira)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.napimsNaira)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.napimsDollar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.napimsDollar)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.napimsFunctionalDollar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.napimsFunctionalDollar)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.requestNaira)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.requestNaira)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.requestDollar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.requestDollar)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.requestFunctionalDollar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.requestFunctionalDollar)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchasingGroup)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PurchasingGroup.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PlannedEmmergency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PlannedEmmergency.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestStatus)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RequestStatus.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ContractProcurementVehicle)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ContractProcurementVehicle.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Asset)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Asset.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Facility)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Facility.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Department.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WBS)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WBS.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Teams)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Teams.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.sponsorID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.sponsorID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.approvalID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.approvalID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.approvalComment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.approvalComment)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.savings)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.savings)
+        </dd>
+        @*<dt>
+            @Html.DisplayNameFor(model => model.variance)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.variance)
+        </dd>*@
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AddedDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedDate)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

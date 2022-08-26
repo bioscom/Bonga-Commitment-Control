@@ -1,0 +1,233 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+/*body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}*/
+
+
+
+html, body {
+    height: 100%;
+}
+
+#wrap {
+    min-height: 100%;
+}
+
+#main {
+    overflow: auto;
+    /*padding-bottom: 150px;  this needs to be bigger than footer height*/
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    background-color: white;
+    color: black;
+    border-top:solid 1px silver;
+    text-align: center;
+}
+
+/*Source: https://stackoverflow.com/questions/24960201/how-do-i-make-glyphicons-bigger-change-size*/
+.glyphicon.glyphicon-duplicate {
+    padding: 3px 3px 3px 3px;
+    font-size: 25px;
+}
+
+.glyphicon.glyphicon-filter {
+    padding: 3px 3px 3px 3px;
+    font-size: 25px;
+}
+
+.glyphicon.glyphicon-plus {
+    padding: 3px 3px 3px 3px;
+    font-size: 25px;
+}
+
+.glyphicon.glyphicon-calendar {
+    padding: 3px 3px 3px 3px;
+    font-size: 25px;
+}
+
+/* Source:  https://www.broculos.net/2015/08/how-to-build-collapsible-sidebars-with.html
+            https://github.com/nunof07/bootstrap-collapsible-sidebar
+*/
+.collapsed {
+    display: none; /* hide it for small displays */
+}
+
+@media (min-width: 992px) {
+    .collapsed {
+        display: block;
+        margin-right: -16.67%; /* same width as sidebar */
+    }
+}
+
+@media (min-width: 992px) {
+    .collapsed {
+        display: block;
+    }
+
+    #sidebar-left.collapsed {
+        margin-left: -16.67%; /* same width as sidebar */
+    }
+
+    #sidebar-right.collapsed {
+        margin-right: -16.67%; /* same width as sidebar */
+    }
+}
+
+#row-main {
+    overflow-x: hidden; /* necessary to hide collapsed sidebar */
+}
+
+#content {
+    -webkit-transition: width 0.3s ease;
+    -moz-transition: width 0.3s ease;
+    -o-transition: width 0.3s ease;
+    transition: width 0.3s ease;
+}
+
+.sidebar {
+    -webkit-transition: margin 0.3s ease;
+    -moz-transition: margin 0.3s ease;
+    -o-transition: margin 0.3s ease;
+    transition: margin 0.3s ease;
+    
+    /* Source: https://stackoverflow.com/questions/20128472/bootstrap-3-0-full-length-body-sidebar */
+    position: relative;
+    min-height: calc(100% - 50px);
+}
+
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.bs-example {
+    margin: 20px;
+    /*border:solid 1px silver;*/
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+
+
+/* Source: https://www.w3schools.com/howto/howto_js_filter_lists.asp */
+
+* {
+    box-sizing: border-box;
+}
+
+#myInput {
+    background-image: url('/css/searchicon.png');
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+}
+
+#myUL {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#myUL li a {
+    border: 1px solid #ddd;
+    margin-top: -1px; /* Prevent double borders */
+    padding: 2px;
+    text-decoration: none;
+    font-size: 12px;
+    color: black;
+    display: block
+}
+
+#myUL li a:hover:not(.header) {
+    background-color: #eee;
+}
+
+
+.SideMenuList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.SideMenuList li a {
+    border: 1px solid #ddd;
+    margin-top: -1px; /* Prevent double borders */
+    padding: 2px;
+    text-decoration: none;
+    font-size: 12px;
+    /*color: black;*/
+    display: block
+}
+
+.SideMenuList li a:hover:not(.header) {
+    background-color: #eee;
+}
+
+
+
+/* Kendo Grid style layout */
+
+.k-grid-content > table > tbody > tr {
+    /*background: rgba(255, 255, 0, 0.1);
+    opacity:0.8;*/
+    font-size:11px;
+    filter: Alpha(opacity=50); /* IE8 and earlier */
+    border: 1px solid white;
+    color: #494949;
+    cursor: pointer;
+    transition: color 1s ease;
+    transition: background 1s ease;
+}
+
+.k-grid-content > table > tbody > .k-alt {
+    /*background: rgba(255, 255, 0, 0.2);
+    background: rgba(63,193,192, 0.2);*/
+    filter: Alpha(opacity=50); /* IE8 and earlier */
+}
+
+.k-grid table tr.k-state-selected {
+    background: gold;
+    /*background: #22B99F;*/
+}
+
+table.dataTable th.focus,
+table.dataTable td.focus {
+    outline: none;
+}

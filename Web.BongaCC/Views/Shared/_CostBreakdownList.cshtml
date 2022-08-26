@@ -1,0 +1,257 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+@using EF.BongaCC.Core.Model;
+@using EF.BongaCC.Data.Repository;
+
+
+@inject IRepository<AppUsers> repoUsers;
+
+@{
+    string UserMail = Apps.getFullEmail(User.Identity.Name);
+    AppUsers LoginUser = repoUsers.GetAll().Result.Where(c => c.UserMail.ToLower().Trim() == UserMail.ToLower().Trim()).FirstOrDefault();
+}
+
+
+<div id="CreateActivityModal" class="modal fade">
+    <div class="modal-dialog modal-lg" style="width:35%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Cost Breakdown</h4>
+            </div>
+            <form id="iFormActionCommitment" asp-action="CreateUpdateCostBreakdown" asp-controller="Commitments" onsubmit="detailsSubmit.disabled = true; return true;">
+                <div id="modalCreateWrapper" class="modal-body" style="height:250px; border:10px; overflow:auto">
+                    @await Html.PartialAsync("_CostBreakdownForm")
+                </div>
+                <div class="modal-footer">
+                    <button id="detailsClose" type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+                    <button id="detailsSubmit" class="btn btn-primary rounded-0">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="editActivityModal" class="modal fade">
+    <div class="modal-dialog modal-lg" style="width:35%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Update Cost Breakdown</h4>
+            </div>
+            <form id="iFormEditCommitment" asp-action="CreateUpdateCostBreakdown" asp-controller="Commitments" onsubmit="detailsUpdate.disabled = true; return true;">
+                <div id="modalEditWrapper" class="modal-body" style="height:250px; border:10px; overflow:auto">
+                    @if (Model.lstCurrencies != null)
+                    {
+                        @await Html.PartialAsync("_CostBreakdownForm")
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+                    <button id="detailsUpdate" class="btn btn-primary rounded-0">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Cost Breakdown
+    </div>
+    <div class="panel-body">
+        <div style="margin:2px;">
+
+            <div class="col-md-12 row">
+                <div class="col-md-2">
+                    <p>
+                        <!-- Button trigger modal -->
+                        <button style="margin-bottom:10px;" type="button" data-target="#CreateActivityModal" data-toggle="modal" class="btn btn-danger btn-sm rounded-0"><i class="fa fa-plus-circle"></i> Add Cost Breakdown</button>
+                    </p>
+                </div>
+                <div class="col-md-10">
+                    <b style="font:bold; color:red; text-underline-position:below">@ViewBag.PRCommitmentMessage2</b>
+                </div>
+            </div>
+
+            @if (Model.lstCostBreakdown.Count() > 0)
+            {
+                <table class="table-condensed table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>S/No.</th>
+                            <th style="width:40%">
+                                @Html.DisplayNameFor(model => model.CostBreakdown.Description)
+                            </th>
+                            <th>
+                                Currency
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CostBreakdown.Quantity)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CostBreakdown.Rate)
+                            </th>
+                            <th>
+                                &#8358; @Html.DisplayNameFor(model => model.CostBreakdown.FixedExchangeRate)
+                            </th>
+                            <th>
+                                Amount(F'$)
+                            </th>
+                            <th colspan="2" style="width:70px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.lstCostBreakdown.Select((x, i) => new { Data = x, Index = i + 1 }))
+                        {
+                            <tr>
+                                <th>
+                                    @item.Index
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Data.Description)
+                                </td>
+                                <td>
+                                    @if (item.Data.CurrencyName.ToUpper() == "Naira".ToUpper())
+                                    {
+                                        <b style="color:green">@Html.DisplayFor(modelItem => item.Data.CurrencyName)</b>
+                                    }
+                                    else
+                                    {
+                                        <b style="color:darkred">@Html.DisplayFor(modelItem => item.Data.CurrencyName)</b>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="pull-right">
+                                        @string.Format("{0:N}", @item.Data.Quantity)
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="pull-right">
+                                        @string.Format("{0:N}", @item.Data.Rate)
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="pull-right">
+                                        @string.Format("{0:N}", @item.Data.FixedExchangeRate)
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="pull-right">
+                                        @string.Format("{0:N}", Convert.ToDecimal(@item.Data.Calculated))
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <a href="#" onclick="editActivityDetailsRow(@item.Data.ID)" class="btn-link btn-primary">Edit</a>
+                                </td>
+                                <td>
+                                    @*Source: https://www.jerriepelser.com/blog/deleting-records-aspnet-core-ajax/*@
+                                    @*<form asp-action="DeleteCostBreakdownConfirmed" asp-route-id="@item.Data.ID" data-ajax="true" data-ajax-success="deleteItem(this)">*@
+                                    <form asp-controller="Commitments" asp-action="DeleteCostBreakdown" asp-route-id="@item.Data.ID">
+                                        <button type="submit" class="btn-link btn-primary d-none d-md-inline-block">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        @{
+                            var totalSum = 0.00M;
+                            @if (Model.lstCostBreakdown != null)
+                            {
+                                foreach (var item in Model.lstCostBreakdown)
+                                {
+                                    totalSum += Convert.ToDecimal(@item.Calculated);
+                                }
+                            }
+
+                            <tr>
+                                <td></td>
+                                <td colspan="5">
+                                    <b>
+                                        Total Commitment
+                                    </b>
+                                </td>
+                                <td>
+                                    <div class="pull-right">
+                                        <b style="color:green">
+                                            @string.Format("{0:N}", totalSum)
+                                        </b>
+                                    </div>
+                                </td>
+                                <td colspan="2"></td>
+                            </tr>
+                        }
+                    </tfoot>
+                </table>
+            }
+        </div>
+    </div>
+    <div class="panel-footer">
+
+        @if (LoginUser != null && (@Model.oBudgetBookCommitment.WorkFlowType == (int)WorkFlowTypes.enuWorkFlowType.FP_AO_LM_CCP) && (LoginUser.RoleId == (int)enuRole.FocalPoint || LoginUser.RoleId == (int)enuRole.Admin))
+        {
+            <a asp-action="Index" type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</a>
+
+            <a onclick="SendForActivityOwnerReview(@Model.oBudgetBookCommitment.ID)" class="btn btn-success rounded-0" title="Your request is still in draft until sent for Activity Owner's Review">
+                Send for Activity Owner's Review
+                <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+            </a>
+        }
+        else if (LoginUser != null && (@Model.oBudgetBookCommitment.WorkFlowType == (int)WorkFlowTypes.enuWorkFlowType.FP_LM_CCP) && (LoginUser.RoleId == (int)enuRole.FocalPoint || LoginUser.RoleId == (int)enuRole.Admin))
+        {
+            <a asp-action="Index" type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</a>
+
+            var totalSum = 0.00M;
+
+            @if (Model.lstCostBreakdown != null)
+            {
+                foreach (var item in Model.lstCostBreakdown)
+                {
+                    totalSum += Convert.ToDecimal(@item.Calculated);
+                }
+            }
+
+            var sessionDate = (Model.oBudgetBookCommitment.CCPSessionDate == null) ? "0.00" : string.Format("{0:dd/MM/yyyy}", Model.oBudgetBookCommitment.CCPSessionDate);
+            <a onclick="SendForLineManagerApproval(@Model.oBudgetBookCommitment.ID, @totalSum, @sessionDate)" class="btn btn-success rounded-0" title="Send for Line Manager's approval">
+                Send for Line Manager's Approval/Review
+                <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+            </a>
+        }
+        else if (LoginUser != null && LoginUser.RoleId == (int)enuRole.ActivityOwner)
+        {
+            var totalSum = 0.00M;
+
+            @if (Model.lstCostBreakdown != null)
+            {
+                foreach (var item in Model.lstCostBreakdown)
+                {
+                    totalSum += Convert.ToDecimal(@item.Calculated);
+                }
+            }
+            <a asp-action="ActivityOwner" type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</a>
+            var sessionDate = (Model.oBudgetBookCommitment.CCPSessionDate == null) ? "0.00" : string.Format("{0:dd/MM/yyyy}", Model.oBudgetBookCommitment.CCPSessionDate);
+            <a onclick="SendForLineManagerApproval(@Model.oBudgetBookCommitment.ID, @totalSum, @sessionDate)" class="btn btn-success rounded-0" title="Send for Line Manager's approval">
+                Send for Line Manager's Approval/Review
+                <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+            </a>
+        }
+        else if (LoginUser != null && LoginUser.RoleId == (int)enuRole.LineManager)
+        {
+            <a asp-action="LineManager" type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</a>
+
+            <a onclick="SendForApproval(@Model.oBudgetBookCommitment.ID)" class="btn btn-success rounded-0" title="Send for Commitment Control Panel Review/Approval">
+                Send for CCP Review/Approval
+                <span class="glyphicon glyphicon-send"></span>
+            </a>
+        }
+    </div>
+</div>
+
+<script>
+    
+
+</script>

@@ -1,0 +1,249 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+@{ Layout = "~/Views/Shared/_LayoutReviewers.cshtml"; }
+
+@using EF.BongaCC.Data.Repository;
+@using EF.BongaCC.Core.Model;
+
+@inject IRepository<AppUsers> repoUsersT;
+
+@{
+    string UserMail = Apps.getFullEmail(User.Identity.Name);
+    var LoginUser = repoUsersT.GetAll().Result.Where(c => c.UserMail.ToLower().Trim() == UserMail.ToLower().Trim()).FirstOrDefault();
+}
+
+<!-- Modal placeholder -->
+@*<div id="modal-placeholder"></div>*@
+
+<div id="aboveThresholdModal" class="modal fade WideView">
+    <div class="modal-dialog" style="width:50%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Line Manager Review (CC Panel)</h4>
+            </div>
+            <form id="iFormDecline" asp-action="LineManagerApprovalAboveThreshold" asp-controller="Commitments">
+                <div id="declineModalWrapper" class="modal-body">
+                    @if (Model.oBudgetBookCommitment != null)
+                    {
+                        @await Html.PartialAsync("_CCDetails2")
+                    }
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="belowThresholdModal" class="modal fade WideView">
+    <div class="modal-dialog" style="width:50%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Line Manager Review</h4>
+            </div>
+            <form id="iFormActionCommitment" asp-action="LineManagerApprovalBelowThreshold" asp-controller="Commitments">
+                <div id="actionItemModalWrapper" class="modal-body">
+                    @if (Model.oBudgetBookCommitment != null)
+                    {
+                        @await Html.PartialAsync("_CCDetails")
+                    }
+                </div>
+                @*<div class="modal-footer">
+                    <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+                </div>*@
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="approvedModal" class="modal fade WideView">
+    <div class="modal-dialog" style="width:50%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Approved Commitment Control</h4>
+            </div>
+            <div id="approvedModalWrapper" class="modal-body">
+                @await Html.PartialAsync("_ApprovedCommitmentControlView")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="control-label">Handover to alternate:</label>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <select id="ddlUser" asp-items="ViewBag.User" class="form-control">
+                <option>--- Select Alternate ---</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <div class="form-group">
+            <button id="HandOver" type="button" class="btn btn-google-plus rounded-0">Handover to Alternate</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#sectionA">Commitments Pending My Review</a></li>
+        <li><a data-toggle="tab" href="#sectionB">Approved Commitment Control</a></li>
+        <li><a data-toggle="tab" href="#sectionC">Rejected/Modified Commitment Control</a></li>
+        <li><a data-toggle="tab" href="#sectionD">Sent For Commitment Controls Panel Review</a></li>
+    </ul>
+    <div class="tab-content" style="border-bottom:1px solid silver; border-left:1px solid silver; border-right:1px solid silver">
+        <div id="sectionA" class="tab-pane fade in active">
+            @await Html.PartialAsync("_LMPendingBudgetCommitmentControl")
+        </div>
+        <div id="sectionB" class="tab-pane fade">
+            @await Html.PartialAsync("_LMApprovedCommitmentControl")
+        </div>
+        <div id="sectionC" class="tab-pane fade">
+            @await Html.PartialAsync("_LMRejectedCommitmentControl")
+        </div>
+        <div id="sectionD" class="tab-pane fade">
+            @await Html.PartialAsync("_LMPendingBudgetCommitmentControlSentForApproval")
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+
+            </div>
+            <div class="modal-body">
+
+                <div role="tabpanel">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#uploadTab" aria-controls="uploadTab" role="tab" data-toggle="tab">Upload</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#browseTab" aria-controls="browseTab" role="tab" data-toggle="tab">Browse</a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="uploadTab">upload Tab</div>
+                        <div role="tabpanel" class="tab-pane" id="browseTab">browseTab</div>
+                    </div>
+                </div>
+
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary save">Save changes</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+
+<script>
+    var ddlOwner = @LoginUser.ID;
+    var RoleId = @LoginUser.RoleId;
+    var ddlAlternate;
+    $("#HandOver").click(function () {
+        ddlAlternate = $("#ddlUser").val();
+        if (ddlAlternate != "--- Select Alternate ---") {
+            var url = "/Commitments/HandOverToAlternate";
+
+            $.post(url, { iUserIdOwner: ddlOwner, iUserIdAlternate: ddlAlternate, iRoleId: RoleId }, function (data) {
+                window.location.href = "@Url.RouteUrl(new { Controller = "Commitments", Action = "LineManager"})";
+            });
+        }
+        else {
+            alert("Please, select an alternate");
+        }
+    });
+
+    $(document).ready(function () {
+        $('.WideView').on('show.bs.modal', function () {
+            $('.modal .modal-body').css('overflow-y', 'auto');
+            $('.modal .modal-body').css('max-height', $(window).height() * 0.8);
+        });
+    });
+
+    //Ability for the line Manager to reject value above Threshold before sending for CCPanel review
+    function actionItemAboveThreshold(Id) {
+        var mymodal = $("#aboveThresholdModal");
+        $.ajax({
+            url: '/Commitments/PresentAction2/' + Id, // The method name + paramater
+            success: function (data) {
+                $('#declineModalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+    function actionItemBelowThreshold(Id) {
+        var mymodal = $("#belowThresholdModal");
+        $.ajax({
+            url: '/Commitments/PresentAction/' + Id, // The method name + paramater
+            success: function (data) {
+                $('#actionItemModalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+    function viewApprovedDetailsRow(Id) {
+        var mymodal = $("#approvedModal");
+        //var mymodal = $("#myModal");
+        $.ajax({
+            url: '/Commitments/ApprovedCommitmentDetails/' + Id, // The method name + paramater
+            success: function (data) {
+                $('#approvedModalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                //$.validator.unobtrusive.parse($("#approvedModalWrapper"));
+                mymodal.modal("show");
+            }
+        });
+    }
+
+    //This Sends for Commitment Control Panel's approval.
+    //Accountable Manager's approval is done in the CCPanel meeting.
+    function SendForCCPApproval(Id) {
+        confirm("Are you sure you want to send for Commitment Control Panel's approval?");
+        var url = "/Commitments/SendForCCPApproval/" + Id;
+
+        $.post(url, function (data) {
+            window.location.href = '/Commitments/LineManager/';
+        });
+    }
+
+</script>
+
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            alert("@TempData["Message"]");
+        };
+    </script>
+}

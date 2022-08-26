@@ -1,0 +1,44 @@
+﻿@model EF.BongaCC.Core.Model.WBS
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdministrator.cshtml";
+}
+
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>WBS</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CostObjects" class="control-label"></label>
+                <input asp-for="CostObjects" class="form-control" />
+                <span asp-validation-for="CostObjects" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CostObjectsDescription" class="control-label"></label>
+                <input asp-for="CostObjectsDescription" class="form-control" />
+                <span asp-validation-for="CostObjectsDescription" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

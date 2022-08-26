@@ -1,0 +1,171 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutCCPanel.cshtml";
+}
+
+<div id="detailsModal" class="modal fade WideView">
+    <div class="modal-dialog" style="width:50%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Commitment Control Presentation/Approval</h4>
+            </div>
+            <form id="iFormActionCommitment" asp-action="CCPanelApproval" asp-controller="Commitments" onsubmit="btnSubmit.disabled = true; return true;">
+                <div id="detailsModalWrapper" class="modal-body">
+                    @if (Model.oBudgetBookCommitment != null)
+                    {
+                        @await Html.PartialAsync("_CCDetails")
+                    }
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="approvedModal" class="modal fade WideView">
+    <div class="modal-dialog" style="width:50%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Approved Commitment Control</h4>
+            </div>
+            <div id="approvedModalWrapper" class="modal-body">
+                @await Html.PartialAsync("_ApprovedCommitmentControlView")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <h2><b style="color:red">Weekly Commitment Control Panel Session (>= @ViewBag.Threshold )</b></h2>
+</div>
+
+<div class="row">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#sectionA">Pending Review/Approval</a></li>
+        <li><a data-toggle="tab" href="#sectionB">Approved Commitment Control</a></li>
+        <li><a data-toggle="tab" href="#sectionC">Rejected/Modified Commitment Control</a></li>
+    </ul>
+    <div class="tab-content" style="border-bottom:1px solid silver; border-left:1px solid silver; border-right:1px solid silver">
+        <div id="sectionA" class="tab-pane fade in active">
+            @await Html.PartialAsync("_CCPSessionPendingBudgetCommitmentControl")
+        </div>
+        <div id="sectionB" class="tab-pane fade">
+            @await Html.PartialAsync("_CCPSessionApprovedCommitmentControl")
+        </div>
+        <div id="sectionC" class="tab-pane fade">
+            @await Html.PartialAsync("_CCPSessionRejectedCommitmentControl")
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />
+
+<script>
+
+    $(document).ready(function () {
+        $('.WideView').on('show.bs.modal', function () {
+            $('.modal .modal-body').css('overflow-y', 'auto');
+            $('.modal .modal-body').css('max-height', $(window).height() * 0.8);
+        });
+    });
+
+    function editRow(Id) {
+        var mymodal = $("#editModal");
+        $.ajax({
+            url: '/Commitments/EditBudgetBookCommitment/' + Id, // The method name + paramater
+            success: function (data) {
+                $('#modalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+    function viewDetailsRow(Id) {
+        var mymodal = $("#detailsModal");
+        $.ajax({
+            url: '/Commitments/PresentAction/' + Id, // The method name + paramater
+            success: function (data) {
+                $('#detailsModalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+    function selectRow(Id) {
+        var mymodal = $("#CreateModal");
+        $.ajax({
+            url: '/Commitments/LoadSelectedBBItem/' + Id, // The method name + paramater LoadSelectedBBItem
+            success: function (data) {
+                $('#CommitmentWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+    function viewApprovedDetailsRow(Id) {
+        var mymodal = $("#approvedModal");
+        $.ajax({
+            url: '/Commitments/ApprovedCommitmentDetails/' + Id, // The method name + paramater
+            success: function (data) {
+                $('#approvedModalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+    function UploadFileRows(Id) {
+        var mymodal = $("#uploadModal");
+        $.ajax({
+            url: '/Commitments/UploadFiles/' + Id, // The method name + paramater
+            success: function (data) {
+                $('#uploadModalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+    //Source: https://stackoverflow.com/questions/4078553/ajax-call-on-onchange-event-in-mvc
+    $("#ddlCloneCommitment").change(function (event) {
+        var mymodal = $("#cloneModal");
+        $.ajax({
+            url: '/Commitments/EditCommitment/' + $(this).val(), // The method name + paramater
+            success: function (data) {
+                $('#cloneModalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    });
+
+    //
+
+    function selectUpdateRow(Id) {
+        var mymodal = $("#editModal");
+        $.ajax({
+            url: '/Commitments/EditBudgetBookCommitment/' + Id, // The method name + paramater LoadSelectedBBItem
+            success: function (data) {
+                $('#modalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                //$.validator.unobtrusive.parse($("#modalWrapper"));
+                mymodal.modal("show");
+            }
+        });
+    }
+
+</script>
+
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            alert("@TempData["Message"]");
+        };
+    </script>
+}

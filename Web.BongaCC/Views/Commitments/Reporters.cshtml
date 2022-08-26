@@ -1,0 +1,16 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+
+@*@await Html.PartialAsync("_TotalCapexOpexSummary2")*@
+
+@await Html.PartialAsync("_ReportingView")
+
+
+
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            alert("@TempData["Message"]");
+        };
+    </script>
+}

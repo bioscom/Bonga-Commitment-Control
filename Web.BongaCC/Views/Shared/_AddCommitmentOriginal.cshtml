@@ -1,0 +1,242 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+
+    <div class="panel panel-default col-md-12">
+        @*<div class="panel-heading">
+            <b>@Html.DisplayFor(model => model.oBudgetBook.Activity)</b>
+        </div>*@
+        <div class="panel-body" style="overflow:auto">
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="oBudgetBookCommitment.title" class="control-label"></label>
+                </div>
+                <div class="col-md-10">
+                    <textarea asp-for="oBudgetBookCommitment.title" class="form-control" rows="5" cols="100"></textarea>
+                    <span asp-validation-for="oBudgetBookCommitment.title" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="oBudgetBookCommitment.PONumber" class="control-label"></label>
+                </div>
+                <div class="col-md-4">
+                    <input asp-for="oBudgetBookCommitment.PONumber" class="form-control" />
+                    <span asp-validation-for="oBudgetBookCommitment.PONumber" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-2">
+                    <label asp-for="oBudgetBookCommitment.POValue" class="control-label"></label>
+                </div>
+                <div class="col-md-4">
+                    <input id="povalue" asp-for="oBudgetBookCommitment.POValue" onkeydown="return isNumberKey(event, this)" class="form-control" />
+                    <span asp-validation-for="oBudgetBookCommitment.POValue" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="oBudgetBookCommitment.PRNumber" class="control-label"></label>
+                </div>
+                <div class="col-md-4">
+                    <input asp-for="oBudgetBookCommitment.PRNumber" class="form-control" />
+                    <span asp-validation-for="oBudgetBookCommitment.PRNumber" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-2">
+                    <label asp-for="oBudgetBookCommitment.PRValue" class="control-label"></label>
+                </div>
+                <div class="col-md-4">
+                    <input id="prvalue" asp-for="oBudgetBookCommitment.PRValue" onkeydown="return isNumberKey(event, this)" class="form-control" />
+                    <span asp-validation-for="oBudgetBookCommitment.PRValue" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="oBudgetBookCommitment.vehicleID" class="control-label"></label>
+                </div>
+
+                <div class="col-md-4">
+                    <select id="ddlVehicle" asp-for="oBudgetBookCommitment.vehicleID" class="form-control" asp-items="ViewBag.vehicleID">
+                        <option>Select Procurement Vehicle</option>
+                    </select>
+                    <span asp-validation-for="oBudgetBookCommitment.vehicleID" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-2">
+                    <label asp-for="oBudgetBookCommitment.groupID" class="control-label"></label>
+                </div>
+                <div class="col-md-4">
+                    <select id="ddlGroup" asp-for="oBudgetBookCommitment.groupID" class="form-control" asp-items="ViewBag.groupID">
+                        <option>Select Purchase Group</option>
+                    </select>
+                    <span asp-validation-for="oBudgetBookCommitment.groupID" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="oBudgetBookCommitment.teamID" class="control-label"></label>
+                </div>
+                <div class="col-md-4">
+                    <select id="ddlTeam" asp-for="oBudgetBookCommitment.teamID" class="form-control" asp-items="ViewBag.teamID">
+                        <option>Select Team</option>
+                    </select>
+                    <span asp-validation-for="oBudgetBookCommitment.teamID" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-2">
+                    <label asp-for="oBudgetBookCommitment.typeID" class="control-label"></label>
+                </div>
+                <div class="col-md-4">
+                    <select id="ddlPlannedEmmergency" asp-for="oBudgetBookCommitment.typeID" class="form-control" asp-items="ViewBag.typeID">
+                        <option>Select Planned Emmergency</option>
+                    </select>
+                    <span asp-validation-for="oBudgetBookCommitment.typeID" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="oBudgetBookCommitment.statusID" class="control-label"></label>
+                </div>
+                <div class="col-md-4">
+                    <select id="ddlRequestStatus" asp-for="oBudgetBookCommitment.statusID" class="form-control" asp-items="ViewBag.statusID">
+                        <option>Select Request Status</option>
+                    </select>
+                    <span asp-validation-for="oBudgetBookCommitment.statusID" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-2">
+                    <label asp-for="oBudgetBookCommitment.sPeriodfrom" class="control-label"></label>
+                </div>
+                <div class="col-md-4">
+                    <input asp-for="oBudgetBookCommitment.sPeriodfrom" class="form-control" />
+                    <span asp-validation-for="oBudgetBookCommitment.sPeriodfrom" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="oBudgetBookCommitment.justification" class="control-label"></label>
+                </div>
+                <div class="col-md-10">
+                    <textarea asp-for="oBudgetBookCommitment.justification" class="form-control" rows="5" cols="100"></textarea>
+                    <span asp-validation-for="oBudgetBookCommitment.justification" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="oBudgetBookCommitment.threat" class="control-label"></label>
+                </div>
+                <div class="col-md-10">
+                    <textarea asp-for="oBudgetBookCommitment.threat" class="form-control" rows="5" cols="100"></textarea>
+                    <span asp-validation-for="oBudgetBookCommitment.threat" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="oBudgetBookCommitment.contractnovendor" class="control-label"></label>
+                </div>
+                <div class="col-md-10">
+                    <input asp-for="oBudgetBookCommitment.contractnovendor" class="form-control" />
+                    <span asp-validation-for="oBudgetBookCommitment.contractnovendor" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+            <button id="btnSubmit" class="btn btn-primary rounded-0">Submit</button>
+        </div>
+    </div>
+
+    <input type="hidden" asp-for="@Model.oBudgetBookCommitment.ID" />
+    <input type="hidden" asp-for="@Model.oBudgetBook.ID" />
+    <input type="hidden" asp-for="@Model.oBudgetBook.ActivityCodeID" />
+
+    <div id="HideShow" class="form-group row">
+        <div class="col-md-3">
+            <label asp-for="oBudgetBookCommitment.CCPSessionDate" class="control-label"></label>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group date pull-left">
+                <input asp-for="oBudgetBookCommitment.CCPSessionDate" class="form-control datepicker" data-date-format="mm/dd/yyyy" />
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span asp-validation-for="oBudgetBookCommitment.CCPSessionDate" class="text-danger"></span>
+
+            @{
+                var totalSum = 0.00M;
+                if (Model.lstCostBreakdown != null)
+                {
+                    foreach (var item in Model.lstCostBreakdown)
+                    {
+                        //TODO: Find solution to anywhere you used "US Dollar"
+                        //var QtyMultiplier = (item.CurrencyName == "US Dollar") ? item.Rate : (item.Rate / Model.ExchangeRate.FloatingExchangeRate);
+                        //totalSum += Convert.ToDecimal((@item.Quantity * QtyMultiplier));
+
+                        totalSum += Convert.ToDecimal(@item.Calculated);
+                    }
+                }
+            }
+            <input id="totalSum" type="hidden" value="@totalSum" />
+
+
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+                    $('.datepicker').datepicker({
+                        format: 'dd-M-yyyy',
+                        //startDate: '-3d'
+                    })
+                });
+
+                $(document).ready(function () {
+                    var CCPSessionDateRow = $('#HideShow');
+                    CCPSessionDateRow.hide();
+
+                    var totalSum = $("#totalSum");
+                    if (totalSum.val() >= 75000) {
+                        CCPSessionDateRow.show();
+                    }
+                    else {
+                        CCPSessionDateRow.hide();
+                    }
+                });
+
+
+                //$(document).ready(function () {
+
+                //    $("#iFormCreate").submit(function (e) {
+
+                //        //stop submitting the form to see the disabled button effect
+                //        e.preventDefault();
+
+                //        var url = "/Commitments/CreateUpdateBBCommitment/";
+                //        $.post(url, function (data) {
+                //            //window.location.href = '/BudgetUploaderTransformed/Index/';
+                //        });
+
+                //        //disable the submit button
+                //        $("#btnSubmit").attr("disabled", true);
+
+                //        //disable a normal button
+                //        //$("#btnTest").attr("disabled", true);
+
+                //        return true;
+                //    });
+                //});
+            </script>
+
+            @*function TransformData() { }*@
+
+            @section Scripts {
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            }

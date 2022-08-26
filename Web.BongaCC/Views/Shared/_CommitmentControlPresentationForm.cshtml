@@ -1,0 +1,109 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+
+<div class="top-buffer"></div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        @*@await Html.PartialAsync("_CCDetails")*@
+        @*<div id="compare" class="col-md-6">
+            @await Html.PartialAsync("_CCDetailsCompare")
+        </div>*@
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    @*$('#compare').hide();
+
+    //Source: https://stackoverflow.com/questions/4078553/ajax-call-on-onchange-event-in-mvc
+    $("#ddlCommitment").change(function (event) {
+        var idCommitment = @Model.oBudgetBookCommitment.ID;
+        
+        $.ajax({
+        url: "Commitments/PresentAction/" + $(this).val(),
+            data: { id: idCommitment, idCompare: $(this).val() /* add other additional parameters */ },
+            cache: false,
+            type: "POST",
+            dataType: "html",
+
+            success: function (data, textStatus, XMLHttpRequest) {
+                $("#detailsModalWrapper").html(data); // HTML DOM replace
+                $('#compare').show();
+            }
+        });
+    });*@
+
+    //$(document).ready(function () {
+    //    $('.selectpicker').selectpicker();
+
+    //    //var idcomit = $('#ddlCommitment').val();
+    //    //if (idcomit != null) {
+    //    //    $('#compare').show();
+    //    //}
+    //});
+</script>
+
+
+<style>
+    #modal {
+        float: left;
+    }
+
+    /* enable absolute positioning */
+    .inner-addon {
+        position: relative;
+    }
+
+        /* style icon */
+        .inner-addon .glyphicon {
+            position: absolute;
+            padding: 10px;
+            pointer-events: none;
+        }
+
+    /* align icon */
+    .left-addon .glyphicon {
+        left: 0px;
+    }
+
+    .right-addon .glyphicon {
+        right: 0px;
+    }
+
+    /* add padding  */
+    .left-addon input {
+        padding-left: 30px;
+    }
+
+    .right-addon input {
+        padding-right: 100px;
+    }
+
+    .manageLook {
+        font-weight: bold;
+        color: navy;
+    }
+
+
+
+    * {
+        box-sizing: border-box;
+    }
+
+    #lookup {
+        background-image: url('/css/searchicon.png');
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        /*margin-bottom: 12px;*/
+    }
+
+    #AddNew {
+        /*width: 100%;*/
+        font-size: 12px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+    }
+</style>

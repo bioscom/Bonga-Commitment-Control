@@ -1,0 +1,454 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdministrator.cshtml";
+}
+
+@model Web.BongaCC.ViewModels.BudgetBookViewModel
+
+<div id="CreateBudgetBookItemModal" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width:50%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Budget Book Form</h4>
+            </div>
+
+            <form id="iForm" asp-action="CreateUpdateBudgetBook" asp-controller="BudgetBooks" onsubmit="BBookSubmit.disabled = true; return true;">
+                <div id="modalCreateWrapper" class="modal-body" style="height:500px; padding:20px; overflow:auto">
+                    @await Html.PartialAsync("_BudgetBookNew")
+                </div>
+                <div class="modal-footer">
+                    <button id="BBookClose" type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+                    <button id="BBookSubmit" class="btn btn-primary rounded-0">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="editModal" class="modal fade WideView">
+    <div class="modal-dialog modal-dialog-centered modal-lg" style="width:50%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Budget Book Update Form</h4>
+            </div>
+            <form id="iFormEdit" asp-action="CreateUpdateBudgetBook" asp-controller="BudgetBooks" onsubmit="BBookUpdate.disabled = true; return true;">
+                <div id="modalWrapper" class="modal-body" style="height:500px; padding:20px; overflow:auto">
+                    @await Html.PartialAsync("_BudgetBookNew")
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+                    <button id="BBookUpdate" class="btn btn-primary rounded-0">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("_TotalCapexOpexSummary")
+
+@*<div class="row">
+    <div class="col-md-2">
+        @ViewBag.ActivityOwner
+    </div>
+    <div class="col-md-2">
+        @ViewBag.TotalRollUpBudgetValue
+    </div>
+    <div class="col-md-2">
+        @ViewBag.ActivityCode
+    </div>
+    <div class="col-md-2">
+        @ViewBag.ActivityCodeRollUpBudgetValue
+    </div>
+</div>*@
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="control-label">Select Activity Owner:</label>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="control-label">Select Activity Code:</label>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            <select id="ddlActivityOwner1" asp-items="ViewBag.User" class="form-control selectCriteria">
+                <option value="-1">--- Select Activity Owner ---</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <select id="ddlActivityCode1" asp-items="ViewBag.ActivityCode1" class="form-control selectCriteria">
+                <option value="-1">--- Select ActivityCode ---</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Budget Book (Current Year) by Activity Owners
+    </div>
+    <div class="panel-body overflow-hidden" style="overflow:auto">
+
+        <table id="BudgetBookTbl" class="table table-striped table-bordered dt-responsive" style="font-size:11px;width:100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ActivityOwner)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ActivityCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CapexOpex)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DirectAllocated)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UapCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UapRollUpCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ActivityType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ActivityCodeLineManager)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Sponsor)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CostObject)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Activity)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Scope)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Contract)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BudgetBasis)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NAPIMSBUDGETFDollar)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Commitments)
+                    </th>
+                    <th></th>
+
+
+
+                    @*<th>
+             @Html.DisplayNameFor(model => model.OPYearBudgetNaira)
+         </th>
+         <th>
+             @Html.DisplayNameFor(model => model.OPYearBudgetDollar)
+         </th>
+         <th>
+             @Html.DisplayNameFor(model => model.OPYearBudgetFDollar)
+         </th>
+         <th>
+             @Html.DisplayNameFor(model => model.NAPIMSBUDGETNaira)
+         </th>
+         <th>
+             @Html.DisplayNameFor(model => model.NAPIMSBUDGETDollar)
+         </th>
+
+        <th>
+             @Html.DisplayNameFor(model => model.Q1FYLENaira)
+         </th>
+         <th>
+             @Html.DisplayNameFor(model => model.Q1FYLEDollar)
+         </th>
+         <th>
+             @Html.DisplayNameFor(model => model.Q1FYLEFDollar)
+         </th>
+         <th>
+             @Html.DisplayNameFor(model => model.Q2FYLENaira)
+         </th>
+         <th>
+             @Html.DisplayNameFor(model => model.Q2FYLEDollar)
+         </th>
+         <th>
+             @Html.DisplayNameFor(model => model.Q2FYLEFDollar)
+         </th>
+         <th>
+             @Html.DisplayNameFor(model => model.Q3FYLENaira)
+         </th>
+         <th>
+             @Html.DisplayNameFor(model => model.Q3FYLEDollar)
+         </th>
+         <th>
+             @Html.DisplayNameFor(model => model.Q3FYLEFDollar)
+         </th>
+         <th>
+             @Html.DisplayNameFor(model => model.Q4FYLENaira)
+         </th>
+         <th>
+             @Html.DisplayNameFor(model => model.Q4FYLEDollar)
+         </th>
+         <th>
+             @Html.DisplayNameFor(model => model.Q4FYLEFDollar)
+         </th>*@
+                </tr>
+            </thead>
+            <tfoot align="right">
+                <tr>
+                    <th colspan="15"></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<br />
+<br />
+<br />
+
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            alert("@TempData["Message"]");
+        };
+    </script>
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var items = "<option value='0' selected>Select...</option>";
+        //<option disabled selected>--- SELECT ---</option>
+        //$('#ddlActivityOwner1').html(items);
+        $('#ddlActivityCode1').html(items);
+
+        $('#ddlActivityOwner1').change(function () {
+            var url = "/Commitments/GetActivityCodeByActivityOwner";
+            var ddlSource = '#ddlActivityOwner1';
+
+            $.getJSON(url, { id: $(ddlSource).val() }, function (data) {
+                var items = '';
+                $('#ddlActivityCode1').empty();
+                $.each(data, function (i, row) {
+                    items += "<option value='" + row.Value + "'>" + row.Text + "</option>";
+                });
+                $('#ddlActivityCode1').html(items);
+            })
+        });
+
+        $(".selectCriteria").change(function (event) {
+            var IdActivityOwner = $("#ddlActivityOwner1").val();
+            var IdActivityCode = $("#ddlActivityCode1").val();
+
+            $("#BudgetBookTbl").DataTable({
+                "aLengthMenu": [[25, 50, 75, -1], [25, 50, 75, "All"]],
+                "iDisplayLength": 25,
+
+                "destroy": true,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "searching": true,
+                "orderMulti": false, // for disable multiple column at once
+                "ajax": {
+                    "url": "/BudgetBooks/LoadData2",
+                    "data": { IdActivityOwner: IdActivityOwner, IdActivityCode: IdActivityCode /* add other additional parameters */ },
+                    "type": "POST",
+                    "datatype": "json",
+                    //"success": function(result) {
+                    //    if (result.data === null) {
+                    //        result.data = []; 
+                    //    }   
+                    //    console.log(result);
+                    //}
+                },
+
+                //Source: https://phppot.com/jquery/calculate-sum-total-of-datatables-column-using-footer-callback/
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api(), data;
+
+                    // converting to interger to find total
+                    var intVal = function (i) {
+                        return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
+                    };
+
+                    // computing column Total of the complete result 
+                    var NAPIMSBUDGETFDollarTotal = api
+                        .column(16)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    var CommitmentsTotal = api
+                        .column(17)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    // Update footer by showing the total with the reference of the column index 
+                    $(api.column(15).footer()).html('Total');
+                    $(api.column(16).footer()).html(NAPIMSBUDGETFDollarTotal);
+                    $(api.column(17).footer()).html(CommitmentsTotal);
+                },
+
+                "columnDefs":
+                    [{
+                        //"targets": [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], "className": "right",
+                        "targets": [16, 17], "className": "right",
+                        "render": $.fn.dataTable.render.number(',', '.', 2),
+                        //"visible": false,
+                        "searchable": true
+                    }],
+                "columns": [
+                    {
+                        "data": "id",
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+
+                    {
+                        "render": function (data, type, full, meta) {
+                            return "<a href='#' class='btn-link btn-primary' onclick=editRow('" + full.ID + "'); >Edit</a>";
+                        }
+                    },
+
+                    { "data": "ActivityOwner", "name": "ActivityOwner", "autoWidth": true },
+                    { "data": "ActivityCode", "name": "ActivityCode", "autoWidth": true },
+                    { "data": "CapexOpex", "name": "CapexOpex", "autoWidth": true },
+                    { "data": "sDirectAllocated", "name": "sDirectAllocated", "autoWidth": true },
+                    { "data": "UapCode", "name": "UapCode", "autoWidth": true },
+                    { "data": "UapRollUpCode", "name": "UapRollUpCode", "autoWidth": true },
+                    { "data": "ActivityType", "name": "ActivityType", "autoWidth": true },
+
+                    { "data": "LineManager", "name": "LineManager", "autoWidth": true },
+                    { "data": "Sponsor", "name": "Sponsor", "autoWidth": true },
+
+                    { "data": "CostObject", "name": "CostObject", "autoWidth": true },
+                    { "data": "Activity", "name": "Activity", "autoWidth": true },
+                    { "data": "Scope", "name": "Scope", "autoWidth": true },
+                    { "data": "Contract", "name": "Contract", "autoWidth": true },
+                    { "data": "BudgetBasis", "name": "BudgetBasis", "Width": "300px" },
+                    { "data": "NAPIMSBUDGETFDollar", "name": "NAPIMSBUDGETFDollar", "autoWidth": true },
+                    { "data": "Commitments", "name": "Commitments", "autoWidth": true },
+                    {
+                        data: null, render: function (data, type, row) {
+                            return "<a href='#' class='btn-link btn-primary' onclick=DeleteData('" + row.ID + "');>Delete</a>";
+                        }
+                    },
+
+
+
+                   
+
+
+                    //{ "data": "OPYearBudgetNaira", "name": "OPYearBudgetNaira", "autoWidth": true },
+                    //{ "data": "OPYearBudgetDollar", "name": "OPYearBudgetDollar", "autoWidth": true },
+                    //{ "data": "OPYearBudgetFDollar", "name": "OPYearBudgetFDollar", "autoWidth": true },
+                    //{ "data": "NAPIMSBUDGETNaira", "name": "NAPIMSBUDGETNaira", "autoWidth": true },
+                    //{ "data": "NAPIMSBUDGETDollar", "name": "NAPIMSBUDGETDollar", "autoWidth": true },
+                    //{ "data": "Q1FYLENaira", "name": "Q1FYLENaira", "autoWidth": true },
+                    //{ "data": "Q1FYLEDollar", "name": "Q1FYLEDollar", "autoWidth": true },
+                    //{ "data": "Q1FYLEFDollar", "name": "Q1FYLEFDollar", "autoWidth": true },
+                    //{ "data": "Q2FYLENaira", "name": "Q2FYLENaira", "autoWidth": true },
+                    //{ "data": "Q2FYLEDollar", "name": "Q2FYLEDollar", "autoWidth": true },
+                    //{ "data": "Q2FYLEFDollar", "name": "Q2FYLEFDollar", "autoWidth": true },
+                    //{ "data": "Q3FYLENaira", "name": "Q3FYLENaira", "autoWidth": true },
+                    //{ "data": "Q3FYLEDollar", "name": "Q3FYLEDollar", "autoWidth": true },
+                    //{ "data": "Q3FYLEFDollar", "name": "Q3FYLEFDollar", "autoWidth": true },
+                    //{ "data": "Q4FYLENaira", "name": "Q4FYLENaira", "autoWidth": true },
+                    //{ "data": "Q4FYLEDollar", "name": "Q4FYLEDollar", "autoWidth": true },
+                    //{ "data": "Q4FYLEFDollar", "name": "Q4FYLEFDollar", "autoWidth": true },
+                    //{
+                    //    data: null, render: function (data, type, row) {
+                    //        return "<a href='#' class='btn-link btn-primary' onclick=viewDetailsRow('" + row.ID + "');>Delete</a>";
+                    //    }
+                    //},
+                    //{ "data": "YYear", "name": "YYear", "autoWidth": true },
+
+                ]
+            });
+        });
+    });
+
+    function DeleteData(DataID) {
+        if (confirm("Are you sure you want to delete this Budget item ...?")) {
+            Delete(DataID);
+        }
+        else {
+            return false;
+        }
+    }
+
+    function Delete(DataID) {
+        var url = "/BudgetBooks/DeleteBudgetLineItem";
+        $.post(url, { ID: DataID }, function (data) {
+            if (data) {
+                oTable = $('#BudgetBookTbl').DataTable();
+                oTable.draw();
+            }
+            else {
+                alert("Something Went Wrong!");
+            }
+        });
+    }
+
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        $('.WideView').on('show.bs.modal', function () {
+            $('.modal .modal-body').css('overflow-y', 'auto');
+            $('.modal .modal-body').css('max-height', $(window).height() * 0.8);
+        });
+
+        $("#AddNew").click(function () {
+            var mymodal = $("#CreateBudgetBookItemModal");
+            $.ajax({
+                url: '/BudgetBooks/NewBudgetBook/', // The method name + paramater
+                success: function (data) {
+                    $('#modalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                    mymodal.modal("show");
+                }
+            });
+        });
+    });
+
+    function editRow(Id) {
+        var mymodal = $("#editModal");
+        $.ajax({
+            url: '/BudgetBooks/EditBudgetBook/' + Id, // The method name + paramater
+            success: function (data) {
+                $('#modalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+</script>

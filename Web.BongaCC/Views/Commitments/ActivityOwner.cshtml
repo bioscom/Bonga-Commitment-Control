@@ -1,0 +1,299 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+@{ Layout = "~/Views/Shared/_LayoutReviewers.cshtml"; }
+
+@using EF.BongaCC.Data.Repository;
+@using EF.BongaCC.Core.Model;
+
+@inject IRepository<AppUsers> repoUsersT;
+
+@{
+    string UserMail = Apps.getFullEmail(User.Identity.Name);
+    var LoginUser = repoUsersT.GetAll().Result.Where(c => c.UserMail.ToLower().Trim() == UserMail.ToLower().Trim()).FirstOrDefault();
+}
+
+<div id="declineModal" class="modal fade WideView">
+    <div class="modal-dialog" style="width:50%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Activity Owner Review</h4>
+            </div>
+            <form id="iFormDecline" asp-action="ActivityOwnerDeclined" asp-controller="Commitments">
+                <div id="declineModalWrapper" class="modal-body">
+                    @if (Model.oBudgetBookCommitment != null)
+                    {
+                        @await Html.PartialAsync("_CCDetails2")
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="detailsModal" class="modal fade WideView">
+    <div class="modal-dialog modal-lg" style="width:98%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Commitment Control Presentation/Approval</h4>
+            </div>
+            <form id="iFormActionCommitment" asp-action="CreateUpdate" asp-controller="Commitments">
+                <div id="detailsModalWrapper" class="modal-body">
+                    @if (Model.oBudgetBookCommitment != null)
+                    {
+                        @await Html.PartialAsync("_CommitmentControlPresentationForm")
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="approvedModal" class="modal fade WideView">
+    <div class="modal-dialog" style="width:50%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Commitment Control</h4>
+            </div>
+            <div id="approvedModalWrapper" class="modal-body">
+                @await Html.PartialAsync("_ApprovedCommitmentControlView")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="editModal" class="modal fade WideView">
+    <div class="modal-dialog modal-lg" style="width:90%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Bonga Commitment Control Form</h4>
+            </div>
+            <form id="iFormEdit" asp-action="CreateUpdateBBCommitment" asp-controller="Commitments">
+                <div id="modalWrapper" class="tab-pane fade in active">
+                    @await Html.PartialAsync("_BudgetBookCommit")
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+                    @*<button class="btn btn-primary rounded-0">Update</button>*@
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="uploadModal">
+    <div class="modal-dialog modal-lg" style="width:60%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Upload Files</h4>
+            </div>
+
+            <form asp-controller="Commitments" asp-action="PostFiles" method="post" enctype="multipart/form-data">
+                <div id="uploadModalWrapper" class="modal-body" style="height:500px; border:10px; overflow:auto">
+                    @await Html.PartialAsync("_Attachments")
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary rounded-0">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="control-label">Handover to alternate:</label>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <select id="ddlUser" asp-items="ViewBag.User" class="form-control">
+                <option>--- Select Alternate ---</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <div class="form-group">
+            <button id="HandOver" type="button" class="btn btn-google-plus rounded-0">Handover to Alternate</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#sectionA">Pending My Review</a></li>
+        <li><a data-toggle="tab" href="#sectionB">Sent for Line Manager's Review</a></li>
+        <li><a data-toggle="tab" href="#sectionC">Approved Commitment Control</a></li>
+        <li><a data-toggle="tab" href="#sectionD">Rejected/ModifiedCommitment Controls</a></li>
+    </ul>
+    <div class="tab-content" style="border-bottom:1px solid silver; border-left:1px solid silver; border-right:1px solid silver">
+        <div id="sectionA" class="tab-pane fade in active">
+            @await Html.PartialAsync("_AOPendingBudgetCommitmentControl")
+        </div>
+        <div id="sectionB" class="tab-pane fade">
+            @await Html.PartialAsync("_AOPendingBudgetCommitmentControlSentForApproval")
+        </div>
+        <div id="sectionC" class="tab-pane fade">
+            @await Html.PartialAsync("_AOApprovedCommitmentControl")
+        </div>
+        <div id="sectionD" class="tab-pane fade">
+            @await Html.PartialAsync("_AORejectedCommitmentControl")
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />
+
+<script>
+    var ddlOwner = @LoginUser.ID;
+    var RoleId = @LoginUser.RoleId;
+    var ddlAlternate;
+    $("#HandOver").click(function () {
+        ddlAlternate = $("#ddlUser").val();
+        if (ddlAlternate != "--- Select Alternate ---") {
+            var url = "/Commitments/HandOverToAlternate";
+
+            $.post(url, { iUserIdOwner: ddlOwner, iUserIdAlternate: ddlAlternate, iRoleId: RoleId }, function (data) {
+                window.location.href = "@Url.RouteUrl(new { Controller = "Commitments", Action = "ActivityOwner"})";
+            });
+        }
+        else {
+            alert("Please, select an alternate");
+        }
+    });
+
+    $(document).ready(function () {
+        $('.WideView').on('show.bs.modal', function () {
+            $('.modal .modal-body').css('overflow-y', 'auto');
+            $('.modal .modal-body').css('max-height', $(window).height() * 0.8);
+        });
+    });
+
+    function editRow(Id) {
+        var mymodal = $("#editModal");
+        $.ajax({
+            url: '/Commitments/EditBudgetBookCommitment/' + Id, // The method name + paramater
+            success: function (data) {
+                $('#modalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                //$.validator.unobtrusive.parse($("#modalWrapper"));
+                mymodal.modal("show");
+            }
+        });
+    }
+
+    function viewDetailsRow(Id) {
+        var mymodal = $("#detailsModal");
+        $.ajax({
+            url: '/Commitments/PresentAction/' + Id, // The method name + paramater
+            success: function (data) {
+                $('#detailsModalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+    //Ability for the Activity Owner to reject before sending for Line Manager Approval
+    function rejectedByActivityOwner(Id) {
+        var mymodal = $("#declineModal");
+        $.ajax({
+            url: '/Commitments/PresentAction2/' + Id, // The method name + paramater
+            success: function (data) {
+                $('#declineModalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+    //This Sends for Line Manager's approval and no longer Accountable Owner's approval. Accountable Owner is just to know.
+    function SendForLineManagerApproval(Id) {
+
+        confirm("Are you sure you want to send for Line manager's approval?");
+        var url = "/Commitments/SendForLineManagerApproval/" + Id;
+
+        $.post(url, function (data) {
+            window.location.href = '/Commitments/ActivityOwner/';
+        });
+    }
+
+    function selectRow(Id) {
+        var mymodal = $("#CreateModal");
+        $.ajax({
+            url: '/Commitments/LoadSelectedBBItem/' + Id, // The method name + paramater LoadSelectedBBItem
+            success: function (data) {
+                $('#CommitmentWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+    function viewApprovedDetailsRow(Id) {
+        var mymodal = $("#approvedModal");
+        $.ajax({
+            url: '/Commitments/ApprovedCommitmentDetails/' + Id, // The method name + paramater
+            success: function (data) {
+                $('#approvedModalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+
+    function UploadFileRows(Id) {
+        var mymodal = $("#uploadModal");
+        $.ajax({
+            url: '/Commitments/UploadFiles/' + Id, // The method name + paramater
+            success: function (data) {
+                $('#uploadModalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+    //Source: https://stackoverflow.com/questions/4078553/ajax-call-on-onchange-event-in-mvc
+    $("#ddlCloneCommitment").change(function (event) {
+        var mymodal = $("#cloneModal");
+        $.ajax({
+            url: '/Commitments/EditCommitment/' + $(this).val(), // The method name + paramater
+            success: function (data) {
+                $('#cloneModalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    });
+
+    //
+
+    function selectUpdateRow(Id) {
+        var mymodal = $("#editModal");
+        $.ajax({
+            url: '/Commitments/EditBudgetBookCommitment/' + Id, // The method name + paramater LoadSelectedBBItem
+            success: function (data) {
+                $('#modalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+</script>
+
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            alert("@TempData["Message"]");
+        };
+    </script>
+}

@@ -1,0 +1,101 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutBudgetBook.cshtml";
+}
+
+<div id="CreateModal" class="modal fade WideView">
+    <div class="modal-dialog modal-lg" style="width:60%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Bonga Commitment Control Form</h4>
+            </div>
+            @*https://www.the-art-of-web.com/javascript/doublesubmit/*@
+            <form id="iFormCreate" asp-action="CreateUpdateBBCommitment" asp-controller="Commitments" onsubmit="btnSubmit.disabled = true; return true;">
+                <div id="CreateModalBody" class="modal-body" style="border:20px; overflow:auto">
+                    <div id="CommitmentWrapper" class="tab-pane fade in active">
+                        @await Html.PartialAsync("_BudgetBookCommit")
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("_BudgetBook")
+
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            alert("@TempData["Message"]");
+        };
+    </script>
+}
+
+<script type="text/javascript">
+
+    function selectRow(Id) {
+        var mymodal = $("#CreateModal");
+        $.ajax({
+            url: '/Commitments/CreateUpdateBBCommitment/' + Id, // The method name + paramater LoadSelectedBBItem
+            success: function (data) {
+                $('#CommitmentWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $('.datepicker').datepicker({
+            format: 'dd-M-yyyy',
+            //startDate: '-3d'
+        })
+    });
+
+    $(document).ready(function () {
+        var CCPSessionDateRow = $('#HideShow');
+        CCPSessionDateRow.hide();
+
+        var totalSum = $("#totalSum");
+        if (totalSum.val() >= 75000) {
+            CCPSessionDateRow.show();
+        }
+        else {
+            CCPSessionDateRow.hide();
+        }
+    });
+
+
+    //$(document).ready(function () {
+    //    $('.datepicker').datepicker({
+    //        format: 'dd-M-yyyy',
+    //        //startDate: '-3d'
+    //    })
+    //});
+
+    // JQUERY ".Class" SELECTOR.
+    $(document).ready(function () {
+        $('.txtnumval').keypress(function (event) {
+            return isNumber(event, this)
+        });
+    });
+
+    //$(document).ready(function () {
+    //    $('.selectpicker').selectpicker();
+    //});
+
+
+    // THE SCRIPT THAT CHECKS IF THE KEY PRESSED IS A NUMERIC OR DECIMAL VALUE.
+    function isNumber(evt, element) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (
+            (charCode != 45 || $(element).val().indexOf('-') != -1) && // “-” CHECK MINUS, AND ONLY ONE.
+            (charCode != 46 || $(element).val().indexOf('.') != -1) && // “.” CHECK DOT, AND ONLY ONE.
+            (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+
+</script>

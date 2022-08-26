@@ -1,0 +1,145 @@
+﻿@model Web.BongaCC.ViewModels.UserManagementViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label asp-for="FullName" class="control-label"></label>
+            </div>
+            <div class="col-md-9">
+                <input asp-for="FullName" class="form-control" />
+            </div>
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label asp-for="UserName" class="control-label"></label>
+            </div>
+            <div class="col-md-9">
+                <input asp-for="UserName" class="form-control" />
+            </div>
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label asp-for="UserMail" class="control-label"></label>
+            </div>
+            <div class="col-md-9">
+                <input asp-for="UserMail" class="form-control" />
+            </div>
+            <span asp-validation-for="UserMail" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label asp-for="RefInd" class="control-label"></label>
+            </div>
+            <div class="col-md-9">
+                <input asp-for="RefInd" class="form-control" />
+            </div>
+            <span asp-validation-for="RefInd" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label asp-for="RoleId" class="control-label"></label>
+            </div>
+            <div class="col-md-9">
+                <select id="ddlRole" asp-for="RoleId" asp-items="ViewBag.Roles" class="form-control">
+                    <option disabled selected>--- SELECT ---</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="HideShow" class="form-group row">
+            <div class="col-md-3">
+                <label asp-for="LineManagerID" class="control-label"></label>
+            </div>
+            <div class="col-md-9">
+                <select id="ddlLnMgr" asp-for="LineManagerID" asp-items="ViewBag.LineMgrs" class="form-control">
+                    <option disabled selected>--- SELECT ---</option>
+                </select>
+            </div>
+        </div>
+        <input type="hidden" asp-for="ID" />
+
+        @*<div class="form-group">
+            <label asp-for="LoginTime" class="control-label"></label>
+            <input asp-for="LoginTime" class="form-control" />
+            <span asp-validation-for="LoginTime" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="checkbox">
+                <label>
+                    <input asp-for="IsGuestAcct" /> @Html.DisplayNameFor(model => model.IsGuestAcct)
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password" class="control-label"></label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Deligate" class="control-label"></label>
+            <input asp-for="Deligate" class="form-control" />
+            <span asp-validation-for="Deligate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+                <label asp-for="AddedDate" class="control-label"></label>
+                <input asp-for="AddedDate" class="form-control" />
+                <span asp-validation-for="AddedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifiedDate" class="control-label"></label>
+                <input asp-for="ModifiedDate" class="form-control" />
+                <span asp-validation-for="ModifiedDate" class="text-danger"></span>
+            </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>*@
+    </div>
+</div>
+
+
+@*<script type="text/javascript">
+
+    $(document).ready(function () {
+        var LineMgrRow = $('#HideShow');
+        LineMgrRow.hide(); 
+
+        var SubmitButton = $("#Submit");
+
+        $('#ddlRole').change(function () {
+            if ($('#ddlRole').val() == 3) {
+                SubmitButton.attr("disabled", "disabled");
+                LineMgrRow.show();
+            }
+            else {
+                LineMgrRow.hide();
+            }
+        });
+
+        $('#ddlLnMgr').change(function () {
+            if ($('#ddlRole').val() != null) {
+                SubmitButton.removeAttr("disabled");
+            }
+            else {
+                SubmitButton.attr("disabled", "disabled");
+            }
+        });
+
+        ////Source: https://stackoverflow.com/questions/4078553/ajax-call-on-onchange-event-in-mvc
+        ////Source: https://datatables.net/manual/tech-notes/3
+        //$(".selectCriteria").change(function (event) {
+        //    var IdCapexOpex = $("#ddlCapexOpex").val();
+        //    var IdActivityOwner = $("#ddlActivityOwner").val();
+        //    var IdActivityCode = $("#ddlActivityCode").val();
+        //    var IdActivityName = $("#ddlActivityName").val();
+        //    var IdScope = $("#ddlScope").val();
+        //    var IdBudgetBasis = $("#ddlBudgetBasis").val();
+
+        //});
+    });
+</script>*@

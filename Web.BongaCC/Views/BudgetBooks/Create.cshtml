@@ -1,0 +1,181 @@
+﻿@model Web.BongaCC.ViewModels.BudgetBookViewModel 
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdministrator.cshtml";
+}
+
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>BudgetBook</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CapexOpex" class="control-label"></label>
+                <input asp-for="CapexOpex" class="form-control" />
+                <span asp-validation-for="CapexOpex" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DirectAllocated" class="control-label"></label>
+                <input asp-for="DirectAllocated" class="form-control" />
+                <span asp-validation-for="DirectAllocated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UapCodeID" class="control-label"></label>
+                <select asp-for="UapCodeID" class="form-control" asp-items="ViewBag.UapCodeID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="UapRollUpCodeID" class="control-label"></label>
+                <select asp-for="UapRollUpCodeID" class="form-control" asp-items="ViewBag.UapRollUpCodeID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActivityTypeID" class="control-label"></label>
+                <select asp-for="ActivityTypeID" class="form-control" asp-items="ViewBag.ActivityTypeID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActivityCodeID" class="control-label"></label>
+                <select asp-for="ActivityCodeID" class="form-control" asp-items="ViewBag.ActivityCodeID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="wbsID" class="control-label"></label>
+                <select asp-for="wbsID" class="form-control" asp-items="ViewBag.wbsID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActivityID" class="control-label"></label>
+                <select asp-for="ActivityID" class="form-control" asp-items="ViewBag.ActivityID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActivityOwnerID" class="control-label"></label>
+                <input asp-for="ActivityOwnerID" class="form-control" />
+                <span asp-validation-for="ActivityOwnerID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SponsorID" class="control-label"></label>
+                <select asp-for="SponsorID" class="form-control" asp-items="ViewBag.SponsorID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ScopeID" class="control-label"></label>
+                <select asp-for="ScopeID" class="form-control" asp-items="ViewBag.ScopeID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContractID" class="control-label"></label>
+                <select asp-for="ContractID" class="form-control" asp-items="ViewBag.ContractID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="BudgetBasisID" class="control-label"></label>
+                <select asp-for="BudgetBasisID" class="form-control" asp-items="ViewBag.BudgetBasisID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="OPYearBudgetNaira" class="control-label"></label>
+                <input asp-for="OPYearBudgetNaira" class="form-control" />
+                <span asp-validation-for="OPYearBudgetNaira" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OPYearBudgetDollar" class="control-label"></label>
+                <input asp-for="OPYearBudgetDollar" class="form-control" />
+                <span asp-validation-for="OPYearBudgetDollar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OPYearBudgetFDollar" class="control-label"></label>
+                <input asp-for="OPYearBudgetFDollar" class="form-control" />
+                <span asp-validation-for="OPYearBudgetFDollar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NAPIMSBUDGETNaira" class="control-label"></label>
+                <input asp-for="NAPIMSBUDGETNaira" class="form-control" />
+                <span asp-validation-for="NAPIMSBUDGETNaira" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NAPIMSBUDGETDollar" class="control-label"></label>
+                <input asp-for="NAPIMSBUDGETDollar" class="form-control" />
+                <span asp-validation-for="NAPIMSBUDGETDollar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NAPIMSBUDGETFDollar" class="control-label"></label>
+                <input asp-for="NAPIMSBUDGETFDollar" class="form-control" />
+                <span asp-validation-for="NAPIMSBUDGETFDollar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Q1FYLENaira" class="control-label"></label>
+                <input asp-for="Q1FYLENaira" class="form-control" />
+                <span asp-validation-for="Q1FYLENaira" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Q1FYLEDollar" class="control-label"></label>
+                <input asp-for="Q1FYLEDollar" class="form-control" />
+                <span asp-validation-for="Q1FYLEDollar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Q1FYLEFDollar" class="control-label"></label>
+                <input asp-for="Q1FYLEFDollar" class="form-control" />
+                <span asp-validation-for="Q1FYLEFDollar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Q2FYLENaira" class="control-label"></label>
+                <input asp-for="Q2FYLENaira" class="form-control" />
+                <span asp-validation-for="Q2FYLENaira" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Q2FYLEDollar" class="control-label"></label>
+                <input asp-for="Q2FYLEDollar" class="form-control" />
+                <span asp-validation-for="Q2FYLEDollar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Q2FYLEFDollar" class="control-label"></label>
+                <input asp-for="Q2FYLEFDollar" class="form-control" />
+                <span asp-validation-for="Q2FYLEFDollar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Q3FYLENaira" class="control-label"></label>
+                <input asp-for="Q3FYLENaira" class="form-control" />
+                <span asp-validation-for="Q3FYLENaira" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Q3FYLEDollar" class="control-label"></label>
+                <input asp-for="Q3FYLEDollar" class="form-control" />
+                <span asp-validation-for="Q3FYLEDollar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Q3FYLEFDollar" class="control-label"></label>
+                <input asp-for="Q3FYLEFDollar" class="form-control" />
+                <span asp-validation-for="Q3FYLEFDollar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Q4FYLENaira" class="control-label"></label>
+                <input asp-for="Q4FYLENaira" class="form-control" />
+                <span asp-validation-for="Q4FYLENaira" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Q4FYLEDollar" class="control-label"></label>
+                <input asp-for="Q4FYLEDollar" class="form-control" />
+                <span asp-validation-for="Q4FYLEDollar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Q4FYLEFDollar" class="control-label"></label>
+                <input asp-for="Q4FYLEFDollar" class="form-control" />
+                <span asp-validation-for="Q4FYLEFDollar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="YYear" class="control-label"></label>
+                <input asp-for="YYear" class="form-control" />
+                <span asp-validation-for="YYear" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

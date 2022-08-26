@@ -1,0 +1,263 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+
+<div class="row">
+    <div class="col-md-12" style="font-size:11px">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Budget Book Filter Criteria
+                    </div>
+                    <div class="panel-body" style="overflow:auto">
+
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    <label asp-for="oBudgetBook.CapexOpex" class="control-label"></label>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </span>
+                                        <select id="ddlCapexOpex" asp-for="oBudgetBook.CapexOpexID" class="form-control selectCriteria" asp-items='@(new SelectList(@ViewBag.CapexOpexBB, "ID", "CapexOpex"))'></select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    <label asp-for="oBudgetBook.ActivityOwnerID" class="control-label"></label>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </span>
+                                        <select id="ddlActivityOwner" asp-for="oBudgetBook.ActivityOwnerID" class="form-control selectCriteria" asp-items='@(new SelectList(string.Empty, "ID", "FullName"))'></select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    <label asp-for="oBudgetBook.ActivityCodeID" class="control-label"></label>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </span>
+                                        <select id="ddlActivityCode" asp-for="oBudgetBook.ActivityCodeID" class="form-control selectCriteria" asp-items='@(new SelectList(string.Empty, "ID", "ActivityCodeDesc"))'></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    <label asp-for="oBudgetBook.ActivityTypeID" class="control-label"></label>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </span>
+                                        <select id="ddlActivityName" asp-for="oBudgetBook.ActivityTypeID" class="form-control selectCriteria" asp-items='@(new SelectList(string.Empty, "ID", "ActivityName"))'></select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    <label asp-for="oBudgetBook.ScopeID" class="control-label"></label>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </span>
+                                        <select id="ddlScope" asp-for="oBudgetBook.ScopeID" class="form-control selectCriteria" asp-items='@(new SelectList(string.Empty, "ID", "Purpose"))'></select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    <label asp-for="oBudgetBook.BudgetBasisID" class="control-label"></label>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </span>
+                                        <select id="ddlBudgetBasis" asp-for="oBudgetBook.BudgetBasisID" class="form-control selectCriteria" asp-items='@(new SelectList(string.Empty, "ID", "BudgetBase"))'></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                @*<div class="panel panel-default">
+                    <div class="panel-heading">
+                        Selected Item from Budget Book
+                    </div>
+                    <input type="hidden" asp-for="@Model.oBudgetBook.ID" />
+                    <div class="panel-body" style="overflow:auto">
+                        <dl class="dl-horizontal">
+                            @*<dt>
+                        @Html.DisplayNameFor(model => model.oBudgetBook.ID):
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.oBudgetBook.ID)
+                    </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.oBudgetBook.CapexOpex):
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.oBudgetBook.CapexOpex)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.oBudgetBook.sDirectAllocated):
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.oBudgetBook.sDirectAllocated)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.oBudgetBook.UapCode):
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.oBudgetBook.UapCode)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.oBudgetBook.UapRollUpCode):
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.oBudgetBook.UapRollUpCode)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.oBudgetBook.ActivityType):
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.oBudgetBook.ActivityType)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.oBudgetBook.ActivityCode):
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.oBudgetBook.ActivityCode)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.oBudgetBook.CostObject):
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.oBudgetBook.CostObject)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.oBudgetBook.Activity):
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.oBudgetBook.Activity)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.oBudgetBook.ActivityOwner):
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.oBudgetBook.ActivityOwner)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.oBudgetBook.Sponsor):
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.oBudgetBook.Sponsor)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.oBudgetBook.Scope):
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.oBudgetBook.Scope)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.oBudgetBook.Contract):
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.oBudgetBook.Contract)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.oBudgetBook.BudgetBasis):
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.oBudgetBook.BudgetBasis)
+                            </dd>
+                            @if (Model.oBudgetBook != null)
+                            {
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.oBudgetBook.OPYearBudgetFDollar):
+                                </dt>
+                                <dd>
+                                    @string.Format("{0:N}", Model.oBudgetBook.OPYearBudgetFDollar)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.oBudgetBook.NAPIMSBUDGETFDollar):
+                                </dt>
+                                <dd>
+                                    @string.Format("{0:N}", Model.oBudgetBook.NAPIMSBUDGETFDollar)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.oBudgetBook.Q1FYLEFDollar):
+                                </dt>
+                                <dd>
+                                    @string.Format("{0:N}", Model.oBudgetBook.Q1FYLEFDollar)
+                                </dd>
+                            }
+                        </dl>
+
+                        <hr />
+                        <div class="col-md-8">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-5">
+                                        <label asp-for="oBudgetBookCommitment.CCPSessionDate" class="control-label"></label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="input-group date pull-left">
+                                            <input asp-for="oBudgetBookCommitment.CCPSessionDate" class="form-control datepicker" data-date-format="mm/dd/yyyy" />
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-th"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="oBudgetBookCommitment.CCPSessionDate" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-4">
+                                        <label asp-for="oBudgetBookCommitment.Commitment" class="control-label"></label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">$</span>
+                                            <input asp-for="oBudgetBookCommitment.Commitment" id="commit" type="text" class="form-control txtnumval" onpaste="return false;" />
+                                            <span asp-validation-for="oBudgetBookCommitment.Commitment" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+            </div>
+        </div>
+    </div>
+</div>

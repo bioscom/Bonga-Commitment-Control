@@ -1,0 +1,76 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+
+<input type="hidden" asp-for="@Model.oCommitmentCompare.ID" />
+
+
+        <div class="form-group row">
+            <div class="col-md-2 pull-left">
+                <label asp-for="oCommitmentCompare.approverID" class="control-label"></label>
+            </div>
+            <div class="col-md-5 pull-left">
+                @Html.DisplayFor(model => model.oCommitmentCompare.ApprovedBy)
+                @*<select asp-for="oCommitmentCompare.approverID" readonly="readonly" asp-items="ViewBag.approverID" class="form-control">
+                    <option disabled selected>--- SELECT ---</option>
+                </select>*@
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-2 pull-left">
+                <label asp-for="oCommitmentCompare.approvalID" class="control-label"></label>
+            </div>
+            <div class="col-md-5 pull-left">
+                @Html.DisplayFor(model => model.oCommitmentCompare.ApprovalStatus)
+
+                @*<select asp-for="oCommitmentCompare.approvalID" readonly="readonly" asp-items="ViewBag.approvalID" class="form-control">
+                    <option disabled selected>--- SELECT ---</option>
+                </select>*@
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label asp-for="oCommitmentCompare.approvalComment" class="control-label"></label>
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(model => model.oCommitmentCompare.approvalComment)
+                @*<textarea asp-for="oCommitmentCompare.approvalComment" readonly="readonly" rows="5" cols="80" class="form-control"></textarea>
+                <span asp-validation-for="oCommitmentCompare.approvalComment" class="text-danger"></span>*@
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-2 pull-left">
+                <label asp-for="oCommitmentCompare.savings" class="control-label"></label>
+            </div>
+            <div class="col-md-3 pull-left">
+                @Html.DisplayFor(model => model.oCommitmentCompare.savings)
+                @*<input asp-for="oCommitmentCompare.savings" readonly="readonly" class="form-control" />
+                <span asp-validation-for="oCommitmentCompare.savings" class="text-danger"></span>*@
+            </div>
+        </div>
+   
+
+<input type="hidden" asp-for="oCommitmentCompare.title" />
+<input type="hidden" asp-for="oCommitmentCompare.wbsID">
+<input type="hidden" asp-for="oCommitmentCompare.groupID">
+<input type="hidden" asp-for="oCommitmentCompare.vehicleID">
+<input type="hidden" asp-for="oCommitmentCompare.typeID">
+<input type="hidden" asp-for="oCommitmentCompare.statusID">                   
+<input type="hidden" asp-for="oCommitmentCompare.teamID">
+<input type="hidden" asp-for="oCommitmentCompare.assetID">
+<input type="hidden" asp-for="oCommitmentCompare.facilityID">
+<input type="hidden" asp-for="oCommitmentCompare.departmentID">
+<input type="hidden" asp-for="oCommitmentCompare.periodfrom" />
+<input type="hidden" asp-for="oCommitmentCompare.periodto" />
+<input type="hidden" asp-for="oCommitmentCompare.sponsorID"/>
+<input type="hidden" asp-for="oCommitmentCompare.checkedbyID"/>                
+<input type="hidden" asp-for="oCommitmentCompare.focalpointID"/>
+<input type="hidden" asp-for="oCommitmentCompare.PRNumber" />
+<input type="hidden" asp-for="oCommitmentCompare.PRValue" />
+<input type="hidden" asp-for="oCommitmentCompare.PONumber" />
+<input type="hidden" asp-for="oCommitmentCompare.POValue" />
+<input type="hidden" asp-for="oCommitmentCompare.commitment" />
+<input type="hidden" asp-for="oCommitmentCompare.justification" />
+<input type="hidden" asp-for="oCommitmentCompare.threat" />
+<input type="hidden" asp-for="oCommitmentCompare.comitmntno" />

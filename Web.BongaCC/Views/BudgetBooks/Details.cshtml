@@ -1,0 +1,216 @@
+﻿@model Web.BongaCC.ViewModels.BudgetBookViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdministrator.cshtml";
+}
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BudgetBook</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CapexOpex)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CapexOpex)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DirectAllocated)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DirectAllocated)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UapCode)
+        </dt>
+        @*<dd>
+            @Html.DisplayFor(model => model.UapCode.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UapRollUpCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UapRollUpCode.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivityType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ActivityType.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivityCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ActivityCode.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WBS)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WBS.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Activity.ID)
+        </dd>*@
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivityOwnerID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ActivityOwnerID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Sponsor)
+        </dt>
+        @*<dd>
+            @Html.DisplayFor(model => model.Sponsor.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Scope)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Scope.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Contract)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Contract.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BudgetBasis)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BudgetBasis.ID)
+        </dd>*@
+        <dt>
+            @Html.DisplayNameFor(model => model.OPYearBudgetNaira)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OPYearBudgetNaira)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OPYearBudgetDollar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OPYearBudgetDollar)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OPYearBudgetFDollar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OPYearBudgetFDollar)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NAPIMSBUDGETNaira)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NAPIMSBUDGETNaira)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NAPIMSBUDGETDollar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NAPIMSBUDGETDollar)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NAPIMSBUDGETFDollar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NAPIMSBUDGETFDollar)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Q1FYLENaira)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Q1FYLENaira)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Q1FYLEDollar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Q1FYLEDollar)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Q1FYLEFDollar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Q1FYLEFDollar)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Q2FYLENaira)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Q2FYLENaira)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Q2FYLEDollar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Q2FYLEDollar)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Q2FYLEFDollar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Q2FYLEFDollar)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Q3FYLENaira)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Q3FYLENaira)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Q3FYLEDollar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Q3FYLEDollar)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Q3FYLEFDollar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Q3FYLEFDollar)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Q4FYLENaira)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Q4FYLENaira)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Q4FYLEDollar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Q4FYLEDollar)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Q4FYLEFDollar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Q4FYLEFDollar)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.YYear)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.YYear)
+        </dd>
+       
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

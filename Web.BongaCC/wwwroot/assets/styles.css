@@ -1,0 +1,44 @@
+﻿body{
+    font-family: "Futura Medium"
+}
+
+
+.header {
+    text-align: left;
+    color: black;
+    padding-bottom: 25px;
+}
+
+table {
+    width: 98%;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid gray;
+    padding: 15px;
+    font-size: 13px;
+    text-align: left;
+}
+
+td {
+    border: 1px solid gray;
+    padding: 15px;
+    font-size: 11px;
+    text-align: left;
+}
+
+table th {
+    background-color: LightGreen;
+    color: black;
+}
+
+.thsub {
+    background-color: orange;
+    color: black;
+}
+
+.thsub2 {
+    background-color:burlywood;
+    color: black;
+}

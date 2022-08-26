@@ -1,0 +1,131 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+@*@model Web.BongaCC.ViewModels.BudgetBookViewModel*@
+
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label asp-for="oBudgetBook.ActivityTypeID" class="control-label"></label>
+            <select id="ddlActivityName" asp-for="oBudgetBook.ActivityTypeID" class="form-control" asp-items="ViewBag.ActivityName">
+                <option>Select Activity</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label asp-for="oBudgetBook.ActivityID" class="control-label"></label>
+            <select id="ddlActivity" asp-for="oBudgetBook.ActivityID" class="form-control" asp-items="ViewBag.Activity">
+                <option>Please select...</option>
+            </select>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label asp-for="oBudgetBook.CapexOpex" class="control-label"></label>
+            <select id="ddlCapexOpex" asp-for="oBudgetBook.CapexOpexID" class="form-control" asp-items="ViewBag.CapexOpexBB">
+                <option>Please select...</option>
+            </select>
+            <span asp-validation-for="oBudgetBook.CapexOpex" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="oBudgetBook.UapCodeID" class="control-label"></label>
+            <select asp-for="oBudgetBook.UapCodeID" class="form-control" asp-items="ViewBag.UapCodeID">
+                <option>Please select...</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="oBudgetBook.ActivityCodeID" class="control-label"></label>
+            <select id="ddlActivityCode" asp-for="oBudgetBook.ActivityCodeID" class="form-control" asp-items="ViewBag.ActivityCode">
+                <option>Please select...</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label asp-for="oBudgetBook.DirectAllocated" class="control-label"></label>
+
+            <select id="ddlDirectAllocated" asp-for="oBudgetBook.DirectAllocated" class="form-control" asp-items="ViewBag.DirectAllocated">
+                <option>Please select...</option>
+            </select>
+
+            @*<input asp-for="DirectAllocated" class="form-control" />*@
+            <span asp-validation-for="oBudgetBook.DirectAllocated" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="oBudgetBook.UapRollUpCodeID" class="control-label"></label>
+            <select asp-for="oBudgetBook.UapRollUpCodeID" class="form-control" asp-items="ViewBag.UapRollUpCodeID">
+                <option>Please select...</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="oBudgetBook.wbsID" class="control-label"></label>
+            <select id="ddlWBS" asp-for="oBudgetBook.wbsID" class="form-control" asp-items="ViewBag.WBS">
+                <option>Please select...</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label asp-for="oBudgetBook.ContractID" class="control-label"></label>
+            <select id="ddlContract" asp-for="oBudgetBook.ContractID" class="form-control" asp-items="ViewBag.Contract">
+                <option>Please select...</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label asp-for="oBudgetBook.ScopeID" class="control-label"></label>
+            <select id="ddlScope" asp-for="oBudgetBook.ScopeID" class="form-control" asp-items="ViewBag.Scopes">
+                <option>Please select...</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label asp-for="oBudgetBook.BudgetBasisID" class="control-label"></label>
+            <select id="ddlBudgetBasis" asp-for="oBudgetBook.BudgetBasisID" class="form-control" asp-items="@ViewBag.BudgetBasis">
+                <option>Please select...</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<hr />
+<div class="row">
+
+    <div class="col-md-4">
+
+        <div class="form-group">
+            <label asp-for="oBudgetBook.NAPIMSBUDGETFDollar" class="control-label"></label>
+            <input asp-for="oBudgetBook.NAPIMSBUDGETFDollar" class="form-control" />
+            <span asp-validation-for="oBudgetBook.NAPIMSBUDGETFDollar" class="text-danger"></span>
+        </div>
+    </div>
+
+
+</div>
+<input type="hidden" asp-for="oBudgetBook.ID" />

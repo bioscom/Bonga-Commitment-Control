@@ -1,0 +1,331 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+
+@{
+    ViewData["Title"] = "Cost Breakdown";
+}
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.ID" />
+
+<div class="modal fade" id="AddCommitmentModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Add/Update Commitment</h4>
+            </div>
+
+            <form id="formUpdater" asp-controller="Commitments" asp-action="CreateUpdateBBCommitment" onsubmit="btnSubmit.disabled = true; return true;">
+                <div id="AddCommitmentModalWrapper" class="modal-body" style="border:10px; overflow:auto">
+                    @await Html.PartialAsync("_AddCommitment")
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+                    <button id="btnSubmit" class="btn btn-primary rounded-0">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="uploadModal">
+    <div class="modal-dialog modal-lg" style="width:50%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Upload Files</h4>
+            </div>
+
+            <form id="formFileUploder" asp-controller="Commitments" asp-action="UploadFilesT" method="post" enctype="multipart/form-data">
+                <div id="uploadModalWrapper" class="modal-body" style="height:500px; border:10px; overflow:auto">
+                    @await Html.PartialAsync("_Attachments")
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary rounded-0">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@*<div class="row" style="font-size:12px">
+    <div class="col-md-6">
+        @await Html.PartialAsync("_MyCommitmentDetails")
+
+        <div class="pull-left" style="width:100%">
+            <div class="panel panel-default">
+                <div class="panel-heading panel-head">Budget Book Details</div>
+                <div class="panel-body">
+                    <div class="col-md-12 row">
+                        @await Html.PartialAsync("_CCBBDetails")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading panel-head">Attached Documents</div>
+            <div class="panel-body">
+                <p>
+                    <a href="#" class="btn-link btn-primary" onclick="UploadFileRows(@Model.oBudgetBookCommitment.ID);">
+                        <button type="button" class="btn btn-danger btn-sm rounded-0"><i class="fa fa-plus-circle"></i>Attach Documents</button>
+                    </a>
+                </p>
+                @await Html.PartialAsync("_UploadedDocuments")
+            </div>
+        </div>
+        @await Html.PartialAsync("_CostBreakdownList")
+
+    </div>
+</div>*@
+
+
+<div class="col-md-12">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <i class="more-less glyphicon glyphicon-plus"></i>
+                        <b>@Html.DisplayFor(model => model.oBudgetBook.Activity)</b>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    @await Html.PartialAsync("_MyCommitmentDetails")
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+                    <a href="#" class="btn-link btn-primary" onclick="UpdateCommitment(@Model.oBudgetBookCommitment.ID);">
+                        <button type="button" class="btn btn-primary btn-sm rounded-0"><i class="fa fa-plus-circle"></i>Update</button>
+                    </a>
+                    @*<button id="btnSubmit" class="btn btn-primary rounded-0">Submit</button>*@
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="more-less glyphicon glyphicon-plus"></i>
+                        Cost Breakdown
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                    @await Html.PartialAsync("_CostBreakdownList")
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <i class="more-less glyphicon glyphicon-plus"></i>
+                        Budget Book Details
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                    @await Html.PartialAsync("_CCBBDetails")
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingFour">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        <i class="more-less glyphicon glyphicon-plus"></i>
+                        Upload Documents
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                <div class="panel-body">
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-head">Attached Documents</div>
+                        <div class="panel-body">
+                            <p>
+                                <a href="#" class="btn-link btn-primary" onclick="UploadFileRows(@Model.oBudgetBookCommitment.ID);">
+                                    <button type="button" class="btn btn-danger btn-sm rounded-0"><i class="fa fa-plus-circle"></i>Attach Documents</button>
+                                </a>
+                            </p>
+                                @await Html.PartialAsync("_UploadedDocuments")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- panel-group -->
+</div><!-- container -->
+
+
+
+
+
+
+<br />
+<br />
+<br />
+
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            alert("@TempData["Message"]");
+        };
+    </script>
+}
+
+<script type="text/javascript">
+
+    function UploadFileRows(Id) {
+        var mymodal = $("#uploadModal");
+        $.ajax({
+            url: '/Commitments/UploadFiles/' + Id, // The method name + paramater
+            success: function (data) {
+                $('#uploadModalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+    function UpdateCommitment(Id) {
+        var mymodal = $("#AddCommitmentModal");
+        $.ajax({
+            url: '/Commitments/EditBudgetBookCommitment/' + Id, // The method name + paramater
+            success: function (data) {
+                $('#AddCommitmentModalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $('.datepicker').datepicker({
+            format: 'dd-M-yyyy',
+            //startDate: '-3d'
+        });
+    });
+
+    function editActivityDetailsRow(Id) {
+        var mymodal = $("#editActivityModal");
+        $.ajax({
+            url: '/Commitments/EditCostBreakdown/' + Id, // The method name + paramater
+            success: function (data) {
+                $('#modalEditWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+    function SendForActivityOwnerReview(Id) {
+        //if (confirm("Are you sure you want to send for Activity Owner review?")) {
+        //    var url = "/Commitments/SendForActivityOwnerReview/" + Id;
+
+        //    $.post(url, function (data) {
+        //        window.location.href = '/Commitments/Index/'; 
+        //    });
+        //}
+        //else {
+        //    return false;
+        //}
+
+        if (confirm("Are you sure you want to send for Activity Owner review?")) {
+            var url = "/Commitments/SendForActivityOwnerReview/" + Id;
+
+            $.post(url, function (response) {
+                if (response.result == 'InvalidLogin') {
+                    //show invalid login
+                }
+                else if (response.result == 'Error') {
+                    //show error
+                }
+                else if (response.result == 'Redirect') {
+
+                    //redirecting to main page from here for the time being.
+                    window.location = response.url;
+                }
+            });
+        }
+        else {
+            return false;
+        }
+    }
+
+    //This Sends for Line Manager's approval and no longer Accountable Owner's approval. Accountable Owner is just to know.
+    function SendForLineManagerApproval(Id) {
+
+        //confirm("Are you sure you want to send for Line manager's approval?");
+        //var url = "/Commitments/SendForLineManagerApproval/" + Id;
+
+        //$.post(url, function (data) {
+        //    window.location.href = '/Commitments/ActivityOwner/';
+        //});
+
+        if (confirm("Are you sure you want to send for Line manager's approval?")) {
+            var url = "/Commitments/SendForLineManagerApproval/" + Id;
+
+            $.post(url, function (response) {
+                if (response.result == 'InvalidLogin') {
+                    //show invalid login
+                }
+                else if (response.result == 'Error') {
+                    //show error
+                }
+                else if (response.result == 'Redirect') {
+
+                    //redirecting to main page from here for the time being.
+                    window.location = response.url;
+                }
+            });
+        }
+        else {
+            return false;
+        }
+    }
+
+    //This Sends for Commitment Control Panel's approval.
+    //Accountable Manager's approval is done in the CCPanel meeting.
+    function SendForApproval(Id) {
+        confirm("Are you sure you want to send for Commitment Control Panel's approval?");
+        var url = "/Commitments/SendForApproval/" + Id;
+
+        $.post(url, function (data) {
+            window.location.href = '/Commitments/LineManager/';
+        });
+    }
+
+    function deleteItem(form) {
+        $(form).parents('li').remove();
+    }
+
+    function isNumberKey(evt, element) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if ((charCode != 190 || $(element).val().indexOf('.') != -1)  // “.” CHECK DOT, AND ONLY ONE.
+            && (charCode != 110 || $(element).val().indexOf('.') != -1)  // “.” CHECK DOT, AND ONLY ONE.
+            && ((charCode < 48 && charCode != 8)
+                || (charCode > 57 && charCode < 96)
+                || charCode > 105))
+            return false;
+        return true;
+    }
+
+    //function isNumberKey(evt) {
+    //    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    //    if (charCode != 46 && charCode > 31
+    //        && (charCode < 48 || charCode > 57))
+    //        return false;
+
+    //    return true;
+    //}
+
+</script>

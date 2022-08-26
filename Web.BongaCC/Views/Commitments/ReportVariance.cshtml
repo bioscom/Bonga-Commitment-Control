@@ -1,0 +1,12 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+
+@await Html.PartialAsync("_ReportingMntYrl")
+
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            alert("@TempData["Message"]");
+        };
+    </script>
+}

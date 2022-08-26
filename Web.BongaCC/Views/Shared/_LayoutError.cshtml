@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] Bonga Commitment Control</title>
+
+    <link href="//kendo.cdn.telerik.com/2018.2.516/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="//kendo.cdn.telerik.com/2018.2.516/styles/kendo.rtl.min.css" rel="stylesheet" />
+    <link href="//kendo.cdn.telerik.com/2018.2.516/styles/kendo.uniform.min.css" rel="stylesheet" />
+    <link href="//kendo.cdn.telerik.com/2018.2.516/styles/kendo.uniform.mobile.min.css" rel="stylesheet" />
+    <link href="/aspnet-core/shared/examples.css" rel="stylesheet" />
+
+    <script src="//kendo.cdn.telerik.com/2018.2.516/js/jquery.min.js"></script>
+    <script src="//kendo.cdn.telerik.com/2018.2.516/js/kendo.all.min.js"></script>
+    <script src="//kendo.cdn.telerik.com/2018.2.516/js/kendo.aspnetmvc.min.js"></script>
+    <script src="//kendo.cdn.telerik.com/2018.2.516/js/kendo.timezones.min.js"></script>
+
+    @*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+
+    <style type="text/css">
+        div.k-edit-form-container {
+            width: 90%;
+        }
+
+            div.k-edit-form-container div.editor-field textarea, input.k-textbox {
+                width: 100%;
+                max-width: none;
+            }
+
+        #footer {
+            position: fixed;
+            border-top: solid 1px silver;
+            bottom: 0;
+            background-color: black;
+            height: 40px;
+            width: 100%;
+            color: white;
+        }
+    </style>
+
+    <style type="text/css">
+
+        /* reset everything to the default box model */
+
+        *, :before, :after {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+        }
+
+        /* set a border-box model only to elements that need it */
+
+        .form-control, /*if this class is applied to a Kendo UI widget, its layout may change */
+        .container,
+        .container-fluid,
+        .row,
+        .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,
+        .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2,
+        .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3,
+        .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4,
+        .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5,
+        .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6,
+        .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7,
+        .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8,
+        .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9,
+        .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10,
+        .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11,
+        .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        div.k-edit-form-container {
+            width: 98%;
+        }
+
+            div.k-edit-form-container div.editor-field textarea, input.k-textbox {
+                width: 100%;
+                max-width: none;
+            }
+
+        #footer {
+            position: fixed;
+            border-top: solid 1px silver;
+            bottom: 0;
+            background-color: white;
+            height: 40px;
+            width: 100%;
+            color: black;
+        }
+
+        /* Kendo Grid style layout */
+
+        .k-grid-content > table > tbody > tr {
+            background: rgba(255, 255, 0, 0.1);
+            /*opacity:0.8;*/
+            filter: Alpha(opacity=50); /* IE8 and earlier */
+            border: 1px solid white;
+            color: #494949;
+            cursor: pointer;
+            transition: color 1s ease;
+            transition: background 1s ease;
+        }
+
+        .k-grid-content > table > tbody > .k-alt {
+            background: rgba(255, 255, 0, 0.2);
+            /*background: rgba(63,193,192, 0.2);*/
+            filter: Alpha(opacity=50); /* IE8 and earlier */
+        }
+
+        .k-grid table tr.k-state-selected {
+            background: gold;
+            /*background: #22B99F;*/
+        }
+    </style>
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    @await Html.PartialAsync("_AppHeader2")
+
+    <div class="container-fluid" style="border-top:solid 1px silver; margin-top:5.2em;">
+        @RenderBody()
+
+        <footer id="footer" style="background-color:white">
+            <div class="pull-left" style="width:55%">
+                <div class="pull-left">
+                    <span>Copyright © @DateTime.Now.Year  Bonga Commitment Control</span>
+                </div>
+                <div class="pull-right">
+                    <span><b style="color:red">Support Line:</b><b style="color:navy"> +2348070224772</b></span>
+                </div>
+            </div>
+            <div class="pull-right" style="margin-right:2.0em">
+                <span>2020 - All rights reserved.</span>
+            </div>
+        </footer>
+    </div>
+
+    @RenderSection("scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $("#responsive-panel").kendoResponsivePanel({
+                breakpoint: 768,
+                autoClose: false,
+                orientation: "top"
+            });
+        });
+        function onclick(e) {
+            $("#responsive-panel").getKendoResponsivePanel().toggle();
+        }
+    </script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    @*<script src="https://kendo.cdn.telerik.com/2018.1.117/js/jquery.min.js"></script>
+        <script src="https://kendo.cdn.telerik.com/2018.1.117/js/kendo.all.min.js"></script>
+        <script src="https://kendo.cdn.telerik.com/2018.1.117/js/kendo.aspnetmvc.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://kendo.cdn.telerik.com/2017.3.913/js/jszip.min.js"></script>*@
+    @Html.Kendo().DeferredScripts()
+
+</body>
+</html>

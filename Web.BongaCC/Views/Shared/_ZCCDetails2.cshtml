@@ -1,0 +1,218 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+@using Web.BongaCC.Codes;
+
+<input type="hidden" asp-for="@Model.oCommitment.ID" />
+
+@if (Model.oCommitment != null)
+{
+    <table class="table-condensed table-bordered" style="font-size:12px; width:100%">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oCommitment.comitmntno)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.oCommitment.comitmntno)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oCommitment.title)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.oCommitment.title)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oCommitment.wbsID)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.oCommitment.wbs)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oCommitment.groupID)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.oCommitment.Group)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oCommitment.teamID)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.oCommitment.sTeam)
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oCommitment.assetID)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.oCommitment.Asset)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oCommitment.facilityID)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.oCommitment.Facility)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oCommitment.departmentID)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.oCommitment.Department)
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oCommitment.sponsorID)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.oCommitment.Sponsor)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oCommitment.checkedbyID)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.oCommitment.CheckedBy)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oCommitment.focalpointID)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.oCommitment.FocalPoint)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Approved By
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.oCommitment.ApprovedBy)
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oCommitment.typeID)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.oCommitment.PlannedEmmergency)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oCommitment.statusID)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.oCommitment.Status)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oCommitment.periodfrom)
+            </th>
+
+            <td>
+                @string.Format("{0:ddd, MMM d, yyyy}", Model.oCommitment.periodfrom)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oCommitment.periodto)
+            </th>
+            <td>
+                @string.Format("{0:ddd, MMM d, yyyy}", Model.oCommitment.periodto)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oCommitment.vehicleID)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.oCommitment.VehicleProcurement)
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oCommitment.justification)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.oCommitment.justification)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oCommitment.threat)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.oCommitment.threat)
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <table class="table-condensed table-bordered" style="font-size:12px; width:100%">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.oCommitment.PRNumber)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.oCommitment.PRNumber)
+                        </td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.oCommitment.PRValue)
+                        </th>
+                        <td>
+                            @string.Format("{0:N}", Model.oCommitment.PRValue)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.oCommitment.PONumber)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.oCommitment.PONumber)
+                        </td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.oCommitment.POValue)
+                        </th>
+                        <td>
+                            @string.Format("{0:N}", Model.oCommitment.POValue)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.oCommitment.commitment)
+                        </th>
+                        <td>
+                            <b style="color:green">
+                                @string.Format("{0:N}", Model.oCommitment.commitment)
+                            </b>
+                        </td>
+                        <th>
+                            PO / PR Variance(%):
+                        </th>
+                        <td>
+                            @Computations.sVariance(Model.oCommitment.POValue, Model.oCommitment.PRValue)
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+}

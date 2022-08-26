@@ -1,0 +1,47 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <select id="ddlCapexOpex" asp-items="ViewBag.CapexOpex" class="form-control">
+                <option>--- Select ---</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <select id="ddlWorkstream" asp-items="ViewBag.Activity" class="form-control">
+                <option>--- Select Workstream ---</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <select id="ddlActivityCode" asp-items="ViewBag.ActivityCode" class="form-control">
+                <option>--- Select Workstream Activity ---</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            alert("@TempData["Message"]");
+        };
+    </script>
+}

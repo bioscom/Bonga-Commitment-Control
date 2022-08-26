@@ -1,0 +1,287 @@
+﻿
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label class="control-label">Select Week:</label>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="control-label">Select Export Type:</label>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <select id="ddlWeeks" class="form-control" asp-items="ViewBag.Weeks">
+                <option value="-1">Please select week</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="form-group">
+            <select id="ddlExportType" class="form-control" asp-items="ViewBag.ExportType">
+                <option value="-1">Select Export Type</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-md-1">
+        <div class="form-group">
+            <button id="ExportReport" type="button" class="btn btn-success rounded-0">Export to Excel</button>
+        </div>
+    </div>
+
+    <div class="col-md-1">
+        <div class="form-group">
+            <button id="ExportReport2PDF" type="button" class="btn btn-danger rounded-0">Export to PDF</button>
+        </div>
+    </div>
+
+    <div class="col-md-1">
+        <div class="form-group">
+            <button id="ExportPrereadReport" type="button" class="btn btn-danger rounded-0">Export to PDF (Pre-read)</button>
+        </div>
+    </div>
+</div>
+
+@(Html.Kendo().Grid<Web.BongaCC.ViewModels.BudgetBookCommitmentViewModel>
+    ()
+    .Name("Reporting")
+    .AutoBind(false)
+
+    .Columns(columns =>
+    {
+        columns.Bound(o => o.ID).Hidden();
+        columns.Bound(e => e.CCPSessionDate).Format("{0:dd-MMM-yyyy}").Width(100);
+        columns.Bound(e => e.Comitmntno).Width(100);
+        columns.Bound(e => e.CapexOpex).Width(100);
+        //.Filterable(filterable => filterable.UI("CapexOpexFilter"))
+        //columns.Bound(e => e.sDirectAllocated).Width(100);
+        //.Filterable(filterable => filterable.UI("directAllocatedFilter"))
+
+        columns.Bound(e => e.title).Width(220);
+        columns.Bound(e => e.Commitment).Format("{0:N}").Width(120).HtmlAttributes(new { style = "text-align:right;" });
+
+        columns.Bound(e => e.UapCode).Width(100);
+        //columns.Bound(e => e.UapRollUpCode).Width(100);
+        columns.Bound(e => e.ActivityType).Width(220);
+        //.Filterable(filterable => filterable.UI("ActivityTypeFilter"))
+        //columns.Bound(e => e.ActivityCode).Width(120);
+        //.Filterable(filterable => filterable.UI("ActivityCodeFilter"))
+
+        columns.Bound(e => e.CostObject).Width(200);
+        columns.Bound(e => e.Activity).Width(220);
+        columns.Bound(e => e.FocalPoint).Width(170);
+        columns.Bound(e => e.ActivityOwner).Width(170);
+        columns.Bound(e => e.LineManagerFullName).Width(170);
+        columns.Bound(e => e.Sponsor).Width(170);
+
+        //oWorkSheet.Cells[row, 17].Value = "";
+        columns.Bound(e => e.Contract).Width(220);
+
+        columns.Bound(e => e.Scope)
+        //.Filterable(filterable => filterable.UI("ScopeFilter"))
+        .Width(500);
+
+        columns.Bound(e => e.BudgetBasis).Width(500);
+
+        columns.Bound(e => e.OPYearBudgetFDollar).Format("{0:N}").Width(120).HtmlAttributes(new { style = "text-align:right;" });
+        columns.Bound(e => e.NAPIMSBUDGETFDollar).Format("{0:N}").Width(120).HtmlAttributes(new { style = "text-align:right;" });
+        //columns.Bound(e => e.Q1FYLEFDollar).Format("{0:N}").Width(120).HtmlAttributes(new { style = "text-align:right;" });
+        //columns.Bound(e => e.Savings).Format("{0:N}").Width(120).HtmlAttributes(new { style = "text-align:right;" });
+
+        columns.Bound(e => e.Approver).Width(150);
+        columns.Bound(e => e.ApprovalStatus).Width(150);
+        columns.Bound(e => e.ApprovalComment).Width(300);
+        columns.Bound(e => e.AddedDate).Width(100);
+        //columns.Bound(e => e.AddedDateWeek).Width(100);
+
+    })
+
+
+    .Pageable()
+    .Scrollable(s => s.Height(650))
+    //.ClientDetailTemplateId("CostBreakDowntemplate")
+    //.Filterable(filterable => filterable
+    //    .Extra(false)
+    //    .Operators(operators => operators
+    //        .ForString(str => str.Clear()
+    //            .StartsWith("Starts with")
+    //            .IsEqualTo("Is equal to")
+    //            .IsNotEqualTo("Is not equal to")
+    //        ))
+    //    )
+
+    .ClientDetailTemplateId("CostBreakdowntemplate")
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .AutoSync(true)
+    .ServerOperation(false)
+    .PageSize(45)
+    .Events(events => events.Error("error_handler"))
+    .Events(events => events.Sync("onSave"))
+    .Model(model => model.Id(p => p.ID))
+    .Read(read => read.Action("Read_Report_by_week", "Commitments").Data("additionalData"))
+    )
+    .Events(events => events.DataBound("dataBound"))
+)
+
+
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            alert("@TempData["Message"]");
+        };
+    </script>
+}
+
+<script id="CostBreakdowntemplate" type="text/x-kendo-template">
+
+    <div style="width:700px">
+        @(Html.Kendo().Grid<Web.BongaCC.ViewModels.ActivityDetailsViewModel>()
+                .Name("Details_#=ID#")
+                .Columns(columns =>
+                {
+                    columns.Bound(o => o.Description).Width(150);
+                    columns.Bound(o => o.Quantity).Width(20);
+                    columns.Bound(o => o.Rate).Width(20);
+                    columns.Bound(o => o.FixedExchangeRate).Width(50);
+                    columns.Bound(o => o.Calculated).Width(50);
+                })
+                .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .AutoSync(true)
+                        .ServerOperation(false)
+                        .Events(events => events.Error("error_handler"))
+                        .Events(events => events.Sync("onSave"))
+                        .Model(model => model.Id(x => x.ID))
+                        .Read(read => read.Action("Read_CostBreakDown", "Commitments", new { parentId = "#=ID#" }))
+                    )
+                    //.Events(e => e.ExcelExport("details_excelExport"))
+                    .Sortable()
+                    .ToClientTemplate()
+        )
+    </div>
+</script>
+
+
+<script type="text/javascript">
+
+    //$("#Reporting").getKendoGrid().dataSource.aggregates()
+
+    //$("#Details_#=ID").getKendoGrid().dataSource.aggregates()
+
+    //https://www.telerik.com/forums/loading-grid-on-dropdownlist-change-or-button-click-event
+
+    var ddlExportFormat;
+
+    var ddlItem;
+    function additionalData(e) {
+        return { iWeek: ddlItem }
+    }
+
+    $('#ddlWeeks').change(function () {
+        ddlItem = $("#ddlWeeks").val();
+        var grid = $("#Reporting").data("kendoGrid");
+        grid.dataSource.read();
+    });
+
+    $("#ExportReport").click(function () {
+        ddlExportFormat = $("#ddlExportType").val();
+        ddlItem = $("#ddlWeeks").val();
+        var url = "/Commitments/ExportExcel";
+
+        if ((ddlItem != "-1") && (ddlExportFormat != "-1")) {
+            $.post(url, { iSelectedType: ddlExportFormat, iWeek: ddlItem }, function (data) {
+                //get the file name for download
+                if (data.fileName != "") {
+                    //use window.location.href for redirect to download action for download the file
+                    window.location.href = "@Url.RouteUrl(new { Controller = "Commitments", Action = "Download"})/?file=" + data.fileName;
+                }
+                else {
+
+                }
+            });
+        }
+        else {
+            alert("Please select the CC Panel week you want to generate report and Export type format (A3 or A4).");
+        }
+    });
+
+    $("#ExportReport2PDF").click(function () {
+        ddlExportFormat = $("#ddlExportType").val();
+        ddlItem = $("#ddlWeeks").val();
+        var url = "/Commitments/ExportToPDF";
+        if (ddlItem != "-1") {
+            $.post(url, { iSelectedType: ddlExportFormat, iWeek: ddlItem }, function (data) {
+                //get the file name for download
+                if (data.fileName != "") {
+                    //use window.location.href for redirect to download action for download the file
+                    window.location.href = "@Url.RouteUrl(new { Controller = "Commitments", Action = "Download"})/?file=" + data.fileName;
+                }
+                else {
+
+                }
+            });
+        }
+        else {
+            alert("Please select the CC Panel week you want to generate report.");
+        }
+    });
+
+    $("#ExportPrereadReport").click(function () {
+        ddlExportFormat = $("#ddlExportType").val();
+        ddlItem = $("#ddlWeeks").val();
+        var url = "/Commitments/ExportPrereadToPDF";
+
+        if (ddlItem != "-1") {
+            $.post(url, { iSelectedType: ddlExportFormat, iWeek: ddlItem }, function (data) {
+                //get the file name for download
+                if (data.fileName != "") {
+                    //use window.location.href for redirect to download action for download the file
+                    window.location.href = "@Url.RouteUrl(new { Controller = "Commitments", Action = "Download"})/?file=" + data.fileName;
+                }
+                else {
+
+                }
+            });
+        }
+        else {
+            alert("Please select the CC Panel week you want to generate report.");
+        }
+    });
+
+
+    function dataBound() {
+        this.expandRow(this.tbody.find("tr.k-master-row").first());
+    }
+
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\\n";
+            $.each(e.errors, function (key, value) {
+                if ("errors" in value) {
+                    $.each(value.errors, function () {
+                            message += this + "\\n";
+                        });
+                    }
+                });
+            alert(message);
+        }
+    }
+
+    function onSave(e) {
+    $(event.srcElement)
+        .addClass("k-state-disabled")
+        .bind("click", disable = function (e) { e.preventDefault(); return false; });
+
+        this.dataSource.one("requestEnd", function () { $("[data-role=window] .k-grid-update").off("click", disable).removeClass("k-state-disabled"); });
+    }
+
+</script>

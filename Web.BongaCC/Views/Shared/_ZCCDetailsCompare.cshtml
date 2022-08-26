@@ -1,0 +1,330 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+@using Web.BongaCC.Codes;
+
+<input type="hidden" asp-for="@Model.oCommitmentCompare.ID" />
+
+<div class="top-buffer"></div>
+<div class="panel panel-default">
+    <div class="panel-heading panel-head">Commitment Control</div>
+    <div class="panel-body">
+        @if (Model.oCommitmentCompare != null)
+        {
+            <table class="table-condensed table-bordered" style="font-size:12px; width:100%">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitmentCompare.comitmntno)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.oCommitmentCompare.comitmntno)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitmentCompare.title)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.oCommitmentCompare.title)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitmentCompare.wbsID)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.oCommitmentCompare.wbs)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitmentCompare.groupID)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.oCommitmentCompare.Group)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitmentCompare.teamID)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.oCommitmentCompare.sTeam)
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitmentCompare.assetID)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.oCommitmentCompare.Asset)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitmentCompare.facilityID)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.oCommitmentCompare.Facility)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitmentCompare.departmentID)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.oCommitmentCompare.Department)
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitmentCompare.sponsorID)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.oCommitmentCompare.Sponsor)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitmentCompare.checkedbyID)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.oCommitmentCompare.CheckedBy)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitmentCompare.focalpointID)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.oCommitmentCompare.FocalPoint)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Approved By
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.oCommitmentCompare.ApprovedBy)
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitmentCompare.typeID)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.oCommitmentCompare.PlannedEmmergency)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitmentCompare.statusID)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.oCommitmentCompare.Status)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitmentCompare.periodfrom)
+                    </th>
+
+                    <td>
+                        @string.Format("{0:ddd, MMM d, yyyy}", Model.oCommitment.periodfrom)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitmentCompare.periodto)
+                    </th>
+                    <td>
+                        @string.Format("{0:ddd, MMM d, yyyy}", Model.oCommitment.periodto)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitmentCompare.vehicleID)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.oCommitmentCompare.VehicleProcurement)
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitmentCompare.justification)
+                    </th>
+
+                    <td>
+                        @Html.DisplayFor(model => model.oCommitmentCompare.justification)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitmentCompare.threat)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.oCommitmentCompare.threat)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <table class="table-condensed table-bordered" style="font-size:12px; width:100%">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.oCommitmentCompare.PRNumber)
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.oCommitmentCompare.PRNumber)
+                                </td>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.oCommitmentCompare.PRValue)
+                                </th>
+                                <td>
+                                    @string.Format("{0:N}", Model.oCommitmentCompare.PRValue)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.oCommitmentCompare.PONumber)
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.oCommitmentCompare.PONumber)
+                                </td>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.oCommitmentCompare.POValue)
+                                </th>
+                                <td>
+                                    @string.Format("{0:N}", Model.oCommitmentCompare.POValue)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.oCommitmentCompare.commitment)
+                                </th>
+                                <td>
+                                    <b style="color:green">
+                                        @string.Format("{0:N}", Model.oCommitmentCompare.commitment)
+                                    </b>
+                                </td>
+                                <th>
+                                    PO/PR Variance(%):
+                                </th>
+                                <td>
+                                    @Computations.sVariance(Model.oCommitment.POValue, Model.oCommitment.PRValue)
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+<div class="top-buffer"></div>
+<div class="panel panel-default">
+    <div class="panel-heading panel-head">Cost Breakdownn</div>
+    <div class="panel-body">
+        <table class="table-striped table-bordered table-hover" style="width:100%">
+            <thead>
+                <tr style="font-size:12px">
+                    <th></th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Qty
+                    </th>
+                    <th>
+                        Rate
+                    </th>
+                    <th>
+                        Amount
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.lstCostBreakdownCompare != null)
+                {
+
+                    @foreach (var item in Model.lstCostBreakdownCompare.Select((x, i) => new { Data = x, Index = i + 1 }))
+                    {
+                        <tr style="font-size:11px">
+                            <th>
+                                @item.Index
+                            </th>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Data.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Data.Quantity)
+                            </td>
+                            <td>
+                                <div class="pull-right">
+                                    @Html.DisplayFor(modelItem => item.Data.Rate)
+                                </div>
+                            </td>
+                            <td>
+                                <div class="pull-right">
+                                    @string.Format("{0:N}", Convert.ToDecimal((@item.Data.Quantity * @item.Data.Rate)))
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+            <tfoot>
+                @{
+                    var totalSum = 0.00M;
+
+                    @if (Model.lstCostBreakdownCompare != null)
+                    {
+                        foreach (var item in Model.lstCostBreakdownCompare)
+                        {
+                            totalSum += Convert.ToDecimal((@item.Quantity * @item.Rate));
+                        }
+                    }
+
+                    <tr style="font-size:12px; font:bold">
+                        <th>
+
+                        </th>
+                        <td>
+                            <b>
+                                Total
+                            </b>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <div class="pull-right">
+                                <b>
+                                    @string.Format("{0:N}", totalSum)
+                                </b>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<div class="top-buffer"></div>
+<div class="panel panel-default">
+    <div class="panel-heading panel-head">Approval Decision</div>
+    <div class="panel-body">
+        @await Html.PartialAsync("_ApprovalDecisionCompare")
+    </div>
+</div>
+
+<div class="top-buffer"></div>
+<div class="panel panel-default">
+    <div class="panel-heading panel-head">Uploaded Documents</div>
+    <div class="panel-body">
+        @await Html.PartialAsync("_UploadedDocumentsCompare")
+    </div>
+</div>

@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20190410101134_BudgetBasis.cs" />
+    <Compile Remove="Migrations\20190410101134_BudgetBasis.Designer.cs" />
+    <Compile Remove="Migrations\20190415105157_CXOXUpdated.cs" />
+    <Compile Remove="Migrations\20190415105157_CXOXUpdated.Designer.cs" />
+    <Compile Remove="Migrations\20190417080948_BudgetBookCommitments.cs" />
+    <Compile Remove="Migrations\20190417080948_BudgetBookCommitments.Designer.cs" />
+    <Compile Remove="Migrations\20190417081754_BudgetBookCommitmentsXXX.cs" />
+    <Compile Remove="Migrations\20190417081754_BudgetBookCommitmentsXXX.Designer.cs" />
+    <Compile Remove="Migrations\20190417085049_BudgetBookCommitmentsXXX4.cs" />
+    <Compile Remove="Migrations\20190417085049_BudgetBookCommitmentsXXX4.Designer.cs" />
+    <Compile Remove="Migrations\20190605221815_AppUserLineManagerMappingUpdate.cs" />
+    <Compile Remove="Migrations\20190605221815_AppUserLineManagerMappingUpdate.Designer.cs" />
+    <Compile Remove="Migrations\20190718073057_ApprovalDecision.cs" />
+    <Compile Remove="Migrations\20190718073057_ApprovalDecision.Designer.cs" />
+    <Compile Remove="Migrations\20200620230852_MoreUpdates.cs" />
+    <Compile Remove="Migrations\20200620230852_MoreUpdates.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EF.BongaCC.Core\EF.BongaCC.Core.csproj" />
+  </ItemGroup>
+
+</Project>

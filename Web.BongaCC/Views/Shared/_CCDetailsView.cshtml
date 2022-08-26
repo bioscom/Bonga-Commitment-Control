@@ -1,0 +1,39 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+@using Web.BongaCC.Codes;
+
+<div class="top-buffer"></div>
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.ID" />
+
+<div class="col-md-12">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading panel-head">Commitment Control</div>
+            <div class="panel-body">
+                @await Html.PartialAsync("_CCBBCommitmentDetails2")
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading panel-head">Approval Decision</div>
+            <div class="panel-body">
+                @await Html.PartialAsync("_ApprovalDecisionView")
+                @*<hr />
+                <div class="pull-right">
+                    <button class="btn btn-primary rounded-0">Action</button>
+                </div>*@
+            </div>
+        </div>
+
+        @await Html.PartialAsync("_CostBreakDownView")
+
+        <div class="panel panel-default">
+            <div class="panel-heading panel-head">Uploaded Documents</div>
+            <div class="panel-body">
+                @await Html.PartialAsync("_UploadedDocuments")
+            </div>
+        </div>
+
+    </div>
+</div>

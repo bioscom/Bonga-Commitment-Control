@@ -1,0 +1,83 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+
+<div class="form-group row" style="padding:10px 10px 0px 10px">
+    <div class="input-group">
+        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-search"></span>
+        </span>
+        <input type="text" id="search-text" class="search-box form-control" onkeyup="myFunction()" placeholder="Search for commitment..">
+    </div>
+</div>
+
+@*Source: https://getbootstrap.com/docs/4.0/components/list-group/*@
+
+<ul id="myUL">
+    <div id="Requests"></div>
+</ul>
+
+<script type="text/javascript">
+
+    /* Source: http://www.codedigest.com/posts/39/using-jquery-ajax-methods-to-get-json-result-from-controller-in-aspnet-mvc */
+    $(document).ready(function () {
+        jQuery.ajax({
+            url: "/Commitments/JsonGetBudgetBookCommitments/",
+            type: "GET",
+            data: "{}",
+            dataType: "json",
+            success: function (data) {
+                var items = '';
+                $('#Requests').empty();
+                $.each(data, function (i, row) {
+                    items += "<li><a href='#' onclick='cloneItem(" + row.ID + ");'>" + row.title + "</a></li>"
+                    //items += "<li><a href='#' class='list-group-item list-group-item-action' onclick='cloneItem(" + row.ID + ");'>" + row.title + "</a></li>"
+
+                });
+                $('#Requests').html(items);
+            },
+
+            error: function (xhr, status, error) {
+                alert(xhr.responseText);
+                alert(status);
+                alert(error);
+            }
+        });
+    });
+
+    /* Consult this source for further development https://www.jquery-az.com/javascript-confirm-alert-box-fancy-and-simple-with-5-online-demos/ */
+
+    function cloneItem(id) {
+        var oResponse = confirm("Are you sure you want to clone this item?");
+        if (oResponse == true) {
+            var url = "/Commitments/CloneBudgetBookCommitment/" + id;
+            $.post(url, function (data) {
+                window.location.href = '/Commitments/Index/';
+            });
+        }
+        else {
+            oResponse.focus();
+            return false;
+        }
+    }
+
+    function myFunction() {
+        // Declare variables
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById('search-text');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName('li');
+
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+
+</script>

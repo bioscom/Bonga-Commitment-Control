@@ -1,0 +1,241 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+
+<br />
+
+<div style="font-size:11px">
+    @*<form asp-controller="Commitments" asp-action="">*@
+
+    <div class="row">
+        <div class="col-md-3">
+            <b>From</b>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-11">
+            <div class="input-group date">
+                <input id="RptWeekFrom" class="form-control datepicker" data-date-format="mm/dd/yyyy" />
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <b>To</b>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-11">
+            <div class="input-group date">
+                <input id="RptWeekTo" class="form-control datepicker" data-date-format="mm/dd/yyyy" />
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-11">
+            <select id="ddlCapexOpex" asp-for="oBudgetBook.CapexOpexID" class="form-control selectCriteria" asp-items='@(new SelectList(string.Empty, "ID", "CapexOpex"))'></select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-11">
+            <select id="ddlActivityOwner" asp-for="oBudgetBook.ActivityOwnerID" class="form-control selectCriteria" asp-items='@(new SelectList(string.Empty, "ID", "FullName"))'></select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-11">
+            <select id="ddlActivityCode" asp-for="oBudgetBook.ActivityCodeID" class="form-control selectCriteria" asp-items='@(new SelectList(string.Empty, "ID", "ActivityCodeDesc"))'></select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-11">
+            <select id="ddlActivityName" asp-for="oBudgetBook.ActivityTypeID" class="form-control selectCriteria" asp-items='@(new SelectList(string.Empty, "ID", "ActivityName"))'></select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-11">
+            <select id="ddlScope" asp-for="oBudgetBook.ScopeID" class="form-control selectCriteria" asp-items='@(new SelectList(string.Empty, "ID", "Purpose"))'></select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-11">
+            <select id="ddlBudgetBasis" asp-for="oBudgetBook.BudgetBasisID" class="form-control selectCriteria" asp-items='@(new SelectList(string.Empty, "ID", "BudgetBase"))'></select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-11">
+            <select id="ddlStatus" asp-for="oBudgetBookCommitment.ApprovalID" class="form-control" asp-items="ViewBag.statusID"></select>
+        </div>
+    </div>
+
+    @*<div class="form-group row">
+        <div class="col-md-6">
+            <button id="rptBtn" class="btn btn-primary form-control rounded-0">
+                <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>*@
+    @*</form>*@
+</div>
+
+
+<script type="text/javascript">
+
+    //Source: https://stackoverflow.com/questions/4078553/ajax-call-on-onchange-event-in-mvc
+    $("#rptBtn").click(function () {
+        var IdCapexOpex = $("#ddlCapexOpex").val();
+        var IdActivityOwner = $("ddlActivityOwner").val();
+        var IdActivityCode = $("ddlActivityCode").val();
+        var IdActivityName = $("ddlActivityName").val();
+        var IdScope = $("ddlScope").val();
+        var IdBudgetBasis = $("ddlBudgetBasis").val();
+        var IdCostObject = $("#ddlWbs").val();
+        var IdStatus = $("#ddlStatus").val();
+        var CCPSessionDateFrom = $("RptWeekFrom").val();
+        var CCPSessionDateTo = $("RptWeekTo").val();
+
+        //alert("Are you sure you want to export this report?");
+        $.ajax({
+            type: 'POST',
+            //cache: false,
+            //url: "Commitments/ExportReportToExcel/",
+            url: "Commitments/Excel_Export_Read/",
+            data: { IdCostObject: IdCostObject, IdCapexOpex: IdCapexOpex, IdStatus: IdStatus, IdActivityOwner: IdActivityOwner, IdActivityCode: IdActivityCode, IdActivityName: IdActivityName, IdScope: IdScope, IdBudgetBasis: IdBudgetBasis, CCPSessionDate: CCPSessionDateFrom, CCPSessionDateTo: CCPSessionDateTo, /* add other additional parameters */ },
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+
+            success: function (returnValue) {
+                //window.location = "Commitments/Download?file=" + returnValue;
+            }
+        });
+    });
+
+
+
+    $(document).ready(function () {
+        //Insert Default item Select in dropdownlist on load
+        var items = "<option value='0' selected>Select...</option>";
+        //<option disabled selected>--- SELECT ---</option>
+
+        $('#ddlActivityOwner').html(items);
+        $('#ddlActivityCode').html(items);
+        $('#ddlActivityName').html(items);
+        $('#ddlScope').html(items);
+        $('#ddlBudgetBasis').html(items);
+
+
+        var url = "/Commitments/GetCapexOpex";
+        $.getJSON(url, function (data) {
+            var items = '';
+            $('#ddlCapexOpex').empty();
+            $.each(data, function (i, row) {
+                items += "<option value='" + row.Value + "'>" + row.Text + "</option>";
+            });
+            $('#ddlCapexOpex').html(items);
+        });
+
+        var _url = "/Commitments/GetApprovalDecisions";
+        $.getJSON(_url, function (data) {
+            var items = '';
+            $('#ddlStatus').empty();
+            $.each(data, function (i, row) {
+                items += "<option value='" + row.Value + "'>" + row.Text + "</option>";
+            });
+            $('#ddlStatus').html(items);
+        });
+
+
+        $('#ddlCapexOpex').change(function () {
+            var url = "/Commitments/GetActivityOwnerByCapexOpex";
+            var ddlSource = '#ddlCapexOpex';
+
+            $.getJSON(url, { id: $(ddlSource).val() }, function (data) {
+                if (data.length != 0) {
+
+                    var items = '';
+                    $('#ddlActivityOwner').empty();
+                    $.each(data, function (i, row) {
+                        items += "<option value='" + row.Value + "'>" + row.Text + "</option>";
+                    });
+
+                    // data is the pure html returned from action method, load it to your page
+                    $('#ddlActivityOwner').html(items);
+                }
+                else {
+                    alert('Nothing nothing');
+                }
+                return false;
+            })
+        });
+
+        $('#ddlActivityOwner').change(function () {
+            var url = "/Commitments/GetActivityCodeByActivityOwner";
+            var ddlSource = '#ddlActivityOwner';
+
+            $.getJSON(url, { id: $(ddlSource).val() }, function (data) {
+                var items = '';
+                $('#ddlActivityCode').empty();
+                $.each(data, function (i, row) {
+                    items += "<option value='" + row.Value + "'>" + row.Text + "</option>";
+                });
+                $('#ddlActivityCode').html(items);
+            })
+        });
+
+        $('#ddlActivityOwner').change(function () {
+            var url = "/Commitments/GetActivityNameByActivityOwner";
+            var ddlSource = "#ddlActivityOwner";
+
+            $.getJSON(url, { id: $(ddlSource).val() }, function (data) {
+                var items = '';
+                $('#ddlActivityName').empty();
+                $.each(data, function (i, row) {
+                    items += "<option value='" + row.Value + "'>" + row.Text + "</option>";
+                });
+                $('#ddlActivityName').html(items);
+            })
+        });
+
+        $('#ddlActivityOwner').change(function () {
+            var url = "/Commitments/GetScopeByActivityOwner";
+            var ddlSource = '#ddlActivityOwner';
+
+            $.getJSON(url, { id: $(ddlSource).val() }, function (data) {
+                var items = '';
+                $('#ddlScope').empty();
+                $.each(data, function (i, row) {
+                    items += "<option value='" + row.Value + "'>" + row.Text + "</option>";
+                });
+                $('#ddlScope').html(items);
+            })
+        });
+
+        $('#ddlActivityOwner').change(function () {
+            var url = "/Commitments/GetBudgetBasisByActivityOwner";
+            var ddlSource = '#ddlActivityOwner';
+
+            $.getJSON(url, { id: $(ddlSource).val() }, function (data) {
+                var items = '';
+                $('#ddlBudgetBasis').empty();
+                $.each(data, function (i, row) {
+                    items += "<option value='" + row.Value + "'>" + row.Text + "</option>";
+                });
+                $('#ddlBudgetBasis').html(items);
+            })
+        });
+    });
+
+</script>

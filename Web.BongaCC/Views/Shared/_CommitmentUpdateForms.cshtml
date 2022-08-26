@@ -1,0 +1,21 @@
+﻿<div id="modalWrapper" class="modal-body" style="height:500px; border:10px; overflow:auto">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#commits">Commitment Control</a></li>
+        <li><a data-toggle="tab" href="#ActivityDetails">Cost Breakdown</a></li>
+        <li><a data-toggle="tab" href="#Attachments">Files Attachment</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="commits" class="tab-pane fade in active">
+            @await Html.PartialAsync("_CommitmentForm")
+        </div>
+        <div id="ActivityDetails" class="tab-pane fade">
+            @if (Model.lstCostBreakdown != null)
+            {
+                @await Html.PartialAsync("_CostBreakdownList")
+            }
+        </div>
+        <div id="Attachments" class="tab-pane fade">
+            @await Html.PartialAsync("_Attachments")
+        </div>
+    </div>
+</div>

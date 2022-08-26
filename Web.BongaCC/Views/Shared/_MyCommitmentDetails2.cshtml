@@ -1,0 +1,158 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+@using Web.BongaCC.Codes;
+
+<input type="hidden" asp-for="@Model.oBudgetBook.ID" />
+<input type="hidden" asp-for="@Model.oBudgetBook.ActivityCodeID" />
+
+
+@*<div class="pull-left" style="width:100%">
+    <div class="panel panel-default">
+    <div class="panel-heading panel-head">Commitment Details</div>
+
+        <div class="panel-body">*@
+            <div class="col-md-12 row">
+
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <b>@Html.DisplayNameFor(model => model.oBudgetBookCommitment.Comitmntno): </b>
+                    </div>
+                    <div class="col-md-9">
+                        <b style="color:darkred">@Html.DisplayFor(model => model.oBudgetBookCommitment.Comitmntno)</b>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <b>@Html.DisplayNameFor(model => model.oBudgetBookCommitment.Commitment): </b>
+                    </div>
+                    <div class="col-md-9">
+                        <b style="color:green">@Html.DisplayFor(model => model.oBudgetBookCommitment.Commitment)</b>
+                    </div>
+                    @*<div class="col-md-8">
+                        @{
+                            var commitment = Model.oBudgetBookCommitment.Commitment;
+                        }
+                        <b style="color:green">@string.Format("{0:N}", commitment)</b>
+                    </div>*@
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <b>@Html.DisplayNameFor(model => model.oBudgetBookCommitment.title)</b>
+                    </div>
+                    <div class="col-md-9">
+                        @Html.DisplayFor(model => model.oBudgetBookCommitment.title)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <b>@Html.DisplayNameFor(model => model.oBudgetBookCommitment.PONumber)</b>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.DisplayFor(model => model.oBudgetBookCommitment.PONumber)
+                    </div>
+
+                    <div class="col-md-2">
+                        <b>@Html.DisplayNameFor(model => model.oBudgetBookCommitment.POValue)</b>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.DisplayFor(model => model.oBudgetBookCommitment.POValue)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <b>@Html.DisplayNameFor(model => model.oBudgetBookCommitment.PRNumber)</b>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.DisplayFor(model => model.oBudgetBookCommitment.PRNumber)
+                    </div>
+
+                    <div class="col-md-2">
+                        <b>@Html.DisplayNameFor(model => model.oBudgetBookCommitment.PRValue)</b>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.DisplayFor(model => model.oBudgetBookCommitment.PRValue)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <b>@Html.DisplayNameFor(model => model.oBudgetBookCommitment.vehicleID)</b>
+                    </div>
+
+                    <div class="col-md-4">
+                        @Html.DisplayFor(model => model.oBudgetBookCommitment.VehicleProcurement)
+                    </div>
+
+                    <div class="col-md-2">
+                        <b>@Html.DisplayNameFor(model => model.oBudgetBookCommitment.groupID)</b>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.DisplayFor(model => model.oBudgetBookCommitment.Group)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <b>@Html.DisplayNameFor(model => model.oBudgetBookCommitment.teamID)</b>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.DisplayFor(model => model.oBudgetBookCommitment.sTeam)
+                    </div>
+
+                    <div class="col-md-2">
+                        <b>@Html.DisplayNameFor(model => model.oBudgetBookCommitment.typeID)</b>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.DisplayFor(model => model.oBudgetBookCommitment.PlannedEmmergency)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <b>@Html.DisplayNameFor(model => model.oBudgetBookCommitment.statusID)</b>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.DisplayFor(model => model.oBudgetBookCommitment.Status)
+                    </div>
+
+                    <div class="col-md-2">
+                        <b>@Html.DisplayNameFor(model => model.oBudgetBookCommitment.sPeriodfrom)</b>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.DisplayFor(model => model.oBudgetBookCommitment.sPeriodfrom)
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <b>@Html.DisplayNameFor(model => model.oBudgetBookCommitment.justification)</b>
+                    </div>
+                    <div class="col-md-10">
+                        @Html.DisplayFor(model => model.oBudgetBookCommitment.justification)
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <b>@Html.DisplayNameFor(model => model.oBudgetBookCommitment.threat)</b>
+                    </div>
+                    <div class="col-md-10">
+                        @Html.DisplayFor(model => model.oBudgetBookCommitment.threat)
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <b>@Html.DisplayNameFor(model => model.oBudgetBookCommitment.contractnovendor)</b>
+                    </div>
+                    <div class="col-md-10">
+                        @Html.DisplayFor(model => model.oBudgetBookCommitment.contractnovendor)
+                    </div>
+                </div>
+            </div>
+        @*</div>
+    </div>
+</div>*@

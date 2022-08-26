@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1" />
+    <title>@ViewData["Title"] - Bonga Commitment Control</title>
+
+    <!-- Script -->
+    @*<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>*@
+
+    <script type="text/javascript" src="~/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/bootstrap-datepicker.js"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/accounting.min.js"></script>
+    <script src="~/js/moment.min.js"></script>
+    <script src="~/js/select2.js"></script>
+    <script src="~/assets/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/js/typeahead.js"></script>
+
+    <script type="text/javascript" src="http://cdn.rawgit.com/bassjobsen/Bootstrap-3-Typeahead/master/bootstrap3-typeahead.min.js"></script>
+    <link rel="Stylesheet" href="https://twitter.github.io/typeahead.js/css/examples.css" />
+
+    <!-- Script for Kendo -->
+    <script src="~/Kendo/js/jszip.min.js"></script>
+    <script src="~/Kendo/js/kendo.all.min.js"></script>
+    <script src="~/Kendo/js/kendo.aspnetmvc.min.js"></script>
+    <script src="~/Kendo/js/kendo.timezones.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    @*<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />*@
+    <link href="~/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/responsive.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+
+    <link href="~/Kendo/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Kendo/styles/kendo.rtl.min.css" rel="stylesheet" />
+    <link href="~/Kendo/styles/kendo.uniform.min.css" rel="stylesheet" />
+    <link href="~/Kendo/styles/kendo.uniform.mobile.min.css" rel="stylesheet" />
+
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+
+<body>
+    @await Html.PartialAsync("_AppHeader")
+    <partial name="_CookieConsentPartial" />
+
+    <div id="wrap">
+        <div id="main" class="container-fluid" style="margin-top:10.2em">
+
+            <div class="row" style="border:solid 1px silver; height:40px">
+                <div class="col-md-2 btn-group pull-left" role="group">
+                    @*<a href="/Commitments/BudgetBook/" class="glyphicon glyphicon-plus" onclick="" title="Add New Commitment Control"></a>*@
+                    <a href="#" class="glyphicon glyphicon-duplicate toggle-sidebar-left" title="Clone Existing Commitment Control"></a>
+                    @*<a href="/Commitments/CCPSession/" class="glyphicon glyphicon-calendar" title="CCP Session Commitment Controls"></a>*@
+                </div>
+
+                <div class="col-md-2 btn-group pull-right" role="group">
+                    <a href="#" class="glyphicon glyphicon-filter toggle-sidebar-right" title="View and Export Reports"></a>
+                </div>
+            </div>
+
+            <div class="row" id="row-main">
+                <div class="col-md-2 sidebar" id="sidebar-left" style="border-right:solid 1px silver">
+                    @await Html.PartialAsync("_Clone")
+                </div>
+                <div class="col-md-8" id="content" style="padding:10px 40px 0px 25px">
+                    @RenderBody()
+                </div>
+                <div class="col-md-2 sidebar" id="sidebar-right" style="border-left:solid 1px silver; font-size:90%">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#export">Reporting</a></li>
+                        <li><a data-toggle="tab" href="#summary">Statistics</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="export" class="tab-pane fade in active">
+                            @await Html.PartialAsync("_Reporters")
+                        </div>
+                        <div id="summary" class="tab-pane fade">
+                            @await Html.PartialAsync("_ReportingSummary")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - Copyright:
+        </div>
+    </footer>
+
+    @RenderSection("Scripts", required: false)
+
+    @*<div class="footer">
+            <!-- Copyright -->
+            <div class="footer-copyright text-center py-3">
+                © 2019 Copyright:
+            </div>
+            <!-- Copyright -->
+        </div>*@
+
+</body>
+</html>

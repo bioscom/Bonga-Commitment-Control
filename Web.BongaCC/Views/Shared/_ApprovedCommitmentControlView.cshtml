@@ -1,0 +1,35 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+@using Web.BongaCC.Codes;
+
+<div class="top-buffer"></div>
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.ID" />
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#secAA">Request Details</a></li>
+    <li><a data-toggle="tab" href="#secBB">Cost Breakdown Details</a></li>
+    <li><a data-toggle="tab" href="#secCC">Attached Documents</a></li>
+    <li><a data-toggle="tab" href="#secDD">Approval Decision</a></li>
+</ul>
+<div class="tab-content" style="border-bottom:1px solid silver; border-left:1px solid silver; border-right:1px solid silver">
+    <div id="secAA" class="tab-pane fade in active">
+        <div class="panel-body">
+            @await Html.PartialAsync("_MyCommitmentDetails2")
+            @await Html.PartialAsync("_CCBBDetails")
+        </div>
+    </div>
+    <div id="secBB" class="tab-pane fade">
+        <div class="panel-body">
+            @await Html.PartialAsync("_CostBreakDownView")
+        </div>
+    </div>
+    <div id="secCC" class="tab-pane fade">
+        <div class="panel-body">
+            @await Html.PartialAsync("_UploadedDocumentsCompare")
+        </div>
+    </div>
+    <div id="secDD" class="tab-pane fade">
+        <div class="panel-body">
+            @await Html.PartialAsync("_ApprovalDecisionView")
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="oBudgetBookCommitment.Comitmntno" class="control-label"></label>
+            <b style="color:red; font-size:13px">@Html.DisplayFor(model => model.oBudgetBookCommitment.Comitmntno)</b>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="oBudgetBookCommitment.title" class="control-label"></label>
+            @Html.DisplayFor(model => model.oBudgetBookCommitment.title)
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label asp-for="oBudgetBookCommitment.ActivityOwnerID" class="control-label"></label>
+                <select asp-for="oBudgetBookCommitment.ActivityOwnerID" asp-items="ViewBag.ActivityOwner" class="form-control">
+                    <option value="-1">--- SELECT ---</option>
+                </select>
+                <span asp-validation-for="oBudgetBookCommitment.ActivityOwnerID" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <b>Assigned to: </b>
+                @Html.DisplayFor(model => model.oBudgetBookCommitment.ActivityOwner)
+            </div>
+            <div class="col-md-4">
+                <b>Current Status:</b>
+                @Html.DisplayFor(model => model.oBudgetBookCommitment.ApprovalStatus)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label asp-for="oBudgetBookCommitment.LineManagerID" class="control-label"></label>
+                <select asp-for="oBudgetBookCommitment.LineManagerID" asp-items="ViewBag.LineManager" class="form-control">
+                    <option value="-1">--- SELECT ---</option>
+                </select>
+                <span asp-validation-for="oBudgetBookCommitment.LineManagerID" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <b>Assigned to: </b>
+                @Html.DisplayFor(model => model.oBudgetBookCommitment.LineManagerFullName)
+            </div>
+            <div class="col-md-4">
+                <b>Current Status:</b>
+                @Html.DisplayFor(model => model.oBudgetBookCommitment.ApprovalStatus)
+            </div>
+        </div>
+        
+        <div class="col-md-12 row">
+            <p>
+                <b style="color:red">
+                    Select Activity Owner or Linemanager you want to re-route the request and click Submit button.
+                </b>
+            </p>
+        </div>
+
+        <input type="hidden" asp-for="oBudgetBookCommitment.ID" />
+    </div>
+</div>

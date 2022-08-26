@@ -1,0 +1,81 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+@using Web.BongaCC.Codes;
+
+@using EF.BongaCC.Core.Model;
+@using EF.BongaCC.Data.Repository;
+
+
+@inject IRepository<AppUsers> repoUsers;
+
+@{
+    string UserMail = Apps.getFullEmail(User.Identity.Name);
+    AppUsers LoginUser = repoUsers.GetAll().Result.Where(c => c.UserMail.ToLower().Trim() == UserMail.ToLower().Trim()).FirstOrDefault();
+}
+
+
+<div class="top-buffer"></div>
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.ID" />
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#secA">Request Details</a></li>
+    <li><a data-toggle="tab" href="#secB">Cost Breakdown Details</a></li>
+    <li><a data-toggle="tab" href="#secC">Attached Documents</a></li>
+    <li><a data-toggle="tab" href="#secD">Approval Decision</a></li>
+</ul>
+<div class="tab-content" style="border-bottom:1px solid silver; border-left:1px solid silver; border-right:1px solid silver">
+    <div id="secA" class="tab-pane fade in active">
+        <div class="panel-body">
+            <fieldset>
+                <legend>
+                    <b style="color: green; font-size:13px">Commitment Control Request</b>
+                </legend>
+                @await Html.PartialAsync("_MyCommitmentDetails2")
+            </fieldset>
+
+            <fieldset>
+                <legend>
+                    <b style="color: green; font-size:13px">Budget Book Line Item Details</b>
+                </legend>
+                @await Html.PartialAsync("_CCBBDetails")
+            </fieldset>
+        </div>
+    </div>
+    <div id="secB" class="tab-pane fade">
+        <div class="panel-body">
+            @await Html.PartialAsync("_CostBreakDownView")
+        </div>
+    </div>
+    <div id="secC" class="tab-pane fade">
+        <div class="panel-body">
+            @await Html.PartialAsync("_UploadedDocumentsCompare")
+        </div>
+    </div>
+    <div id="secD" class="tab-pane fade">
+        <div class="panel-body">
+            @await Html.PartialAsync("_ApprovalDecision")
+            <div class="pull-right">
+                <button class="btn btn-danger rounded-0">
+                    Decline Support
+                    <span class="glyphicon glyphicon-arrow-down"></span>
+                </button>
+
+                @*LineManagerDeclined(@Model.oBudgetBookCommitment.ID)*@
+
+                @if (LoginUser != null && LoginUser.RoleId == (int)enuRole.ActivityOwner)
+                {
+                    <a onclick="SendForLineManagerApproval(@Model.oBudgetBookCommitment.ID)" class="btn btn-success rounded-0" title="Send for Line Manager's approval">
+                        Send for Line Manager's Review/Approval
+                        <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                    </a>
+                }
+                else if (LoginUser != null && LoginUser.RoleId == (int)enuRole.LineManager)
+                {
+                    <a onclick="SendForCCPApproval(@Model.oBudgetBookCommitment.ID)" class="btn btn-success rounded-0" title="Send for Commitment Control Panel Review/Approval">
+                        Send for CCP Review/Approval
+                        <span class="glyphicon glyphicon-send"></span>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

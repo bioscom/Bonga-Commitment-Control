@@ -1,0 +1,52 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+@using Web.BongaCC.Codes;
+
+<div class="top-buffer"></div>
+<input type="hidden" asp-for="@Model.oBudgetBookCommitment.ID" />
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#Asec">Request Details</a></li>
+    <li><a data-toggle="tab" href="#Bsec">Cost Breakdown Details</a></li>
+    <li><a data-toggle="tab" href="#Csec">Attached Documents</a></li>
+    <li><a data-toggle="tab" href="#Dsec">Approval Decision</a></li>
+</ul>
+<div class="tab-content" style="border-bottom:1px solid silver; border-left:1px solid silver; border-right:1px solid silver">
+    <div id="Asec" class="tab-pane fade in active">
+        <div class="panel-body">
+            <fieldset>
+                <legend>
+                    <b style="color: green; font-size:13px">Commitment Control Request</b>
+                </legend>
+                @await Html.PartialAsync("_MyCommitmentDetails2")
+            </fieldset>
+
+            <fieldset>
+                <legend>
+                    <b style="color: green; font-size:13px">Budget Book Line Item Details</b>
+                </legend>
+                @await Html.PartialAsync("_CCBBDetails")
+            </fieldset>            
+        </div>
+    </div>
+    <div id="Bsec" class="tab-pane fade">
+        <div class="panel-body">
+            @await Html.PartialAsync("_CostBreakDownView")
+        </div>
+    </div>
+    <div id="Csec" class="tab-pane fade">
+        <div class="panel-body">
+            @await Html.PartialAsync("_UploadedDocumentsCompare")
+        </div>
+    </div>
+    <div id="Dsec" class="tab-pane fade">
+        <div class="panel-body">
+            @await Html.PartialAsync("_ApprovalDecision")
+            <div class="pull-right">
+                <button id="btnSubmit" class="btn btn-primary rounded-0">
+                    Submit
+                    <span class="glyphicon glyphicon-floppy-save"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

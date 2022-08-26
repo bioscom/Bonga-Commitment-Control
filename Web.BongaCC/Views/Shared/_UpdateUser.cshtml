@@ -1,0 +1,122 @@
+﻿@model Web.BongaCC.ViewModels.UserManagementViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label asp-for="FullName" class="control-label"></label>
+            </div>
+            <div class="col-md-9">
+                <input asp-for="FullName" class="form-control" />
+            </div>
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label asp-for="UserName" class="control-label"></label>
+            </div>
+            <div class="col-md-9">
+                <input asp-for="UserName" class="form-control" />
+            </div>
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label asp-for="UserMail" class="control-label"></label>
+            </div>
+            <div class="col-md-9">
+                <input asp-for="UserMail" class="form-control" />
+            </div>
+            <span asp-validation-for="UserMail" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label asp-for="RefInd" class="control-label"></label>
+            </div>
+            <div class="col-md-9">
+                <input asp-for="RefInd" class="form-control" />
+            </div>
+            <span asp-validation-for="RefInd" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label asp-for="Status" class="control-label"></label>
+            </div>
+            <div class="col-md-9">
+                <select id="ddlStatus" asp-for="Status" asp-items="ViewBag.Status" class="form-control">
+                    <option disabled selected>--- SELECT ---</option>
+                </select>
+            </div>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label asp-for="RoleId" class="control-label"></label>
+            </div>
+            <div class="col-md-9">
+                <select id="ddlRoleUpdt" asp-for="RoleId" asp-items="ViewBag.Roles" class="form-control">
+                    <option disabled selected>--- SELECT ---</option>
+                </select>
+            </div>
+        </div>
+
+        @*<div id="HideShowUpdt" class="form-group row">
+            <div class="col-md-3">
+                <label asp-for="LineManagerID" class="control-label"></label>
+            </div>
+            <div class="col-md-9">
+                <select id="ddlLnMgrUpdt" asp-for="LineManagerID" asp-items="ViewBag.LineMgrs" class="form-control">
+                    <option disabled selected>--- SELECT ---</option>
+                </select>
+            </div>
+        </div>*@
+        <input type="hidden" asp-for="ID" />
+    </div>
+</div>
+
+
+@*<script type="text/javascript">
+
+    $(document).ready(function () {
+        var LineMgrRow = $('#HideShowUpdt');
+        var UpdateButton = $("#editSubmit");
+
+        if ($('#ddlRoleUpdt').val() == 3) {
+            UpdateButton.attr("disabled", "disabled");
+            LineMgrRow.show();
+        }
+        else {
+            UpdateButton.removeAttr("disabled");
+            LineMgrRow.hide();
+        }
+
+        //if ($('#ddlLnMgrUpdt').val() == null) {
+        //    UpdateButton.attr("disabled", "disabled");
+        //}
+        //else {
+        //    UpdateButton.removeAttr("disabled");
+        //}
+
+        $('#ddlRoleUpdt').change(function () {
+            if ($('#ddlRoleUpdt').val() == 3) {
+                UpdateButton.attr("disabled", "disabled");
+                LineMgrRow.show();
+            }
+            else {
+                LineMgrRow.hide();
+            }
+        });
+
+        $('#ddlLnMgrUpdt').change(function () {
+            if ($('#ddlRoleUpdt').val() != null) {
+                UpdateButton.removeAttr("disabled");
+            }
+            else {
+                UpdateButton.attr("disabled", "disabled");
+            }
+        });
+    });
+</script>*@

@@ -1,0 +1,147 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+
+<div class="container-fluid"  style="overflow:auto">
+    <br />
+    <div style="width:100%; margin:0 auto;">
+        <table id="pendingCommitments" class="table table-striped table-bordered dt-responsive" style="font-size:11px;width:100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitment.comitmntno)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitment.title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitment.teamID)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitment.wbsID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitment.PRValue)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitment.POValue)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitment.commitment)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitment.sCapexOpex)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitment.statusID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitment.focalpointID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitment.checkedbyID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oCommitment.sponsorID)
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+   $(document).ready(function ()
+    {
+        $("#pendingCommitments").DataTable({
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url": "/Commitments/LoadPendingCommitments",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columnDefs":
+            [{
+                "targets": [4, 5, 6], "className": "right",
+                "render": $.fn.dataTable.render.number(',', '.', 2), 
+                //"visible": false,
+                "searchable": false
+            }],
+            "columns": [
+               
+                { "data": "comitmntno", "name": "comitmntno", "autoWidth": true },
+                { "data": "title", "name": "title", "autoWidth": true },
+                { "data": "sTeam", "name": "sTeam", "autoWidth": true },
+                { "data": "wbs", "name": "wbs", "autoWidth": true },
+                { "data": "PRValue", "name": "PRValue", "autoWidth": true },
+                { "data": "POValue", "name": "POValue", "autoWidth": true },
+                { "data": "commitment", "name": "commitment", "autoWidth": true },
+                { "data": "sCapexOpex", "name": "sCapexOpex", "autoWidth": true },
+                { "data": "Status", "name": "Status", "autoWidth": true },
+                { "data": "FocalPoint", "name": "FocalPoint", "autoWidth": true },  
+                { "data": "CheckedBy", "name": "CheckedBy", "autoWidth": true },
+                { "data": "Sponsor", "name": "Sponsor", "autoWidth": true },
+                {
+                    "render": function (data, type, full, meta) {
+                        return "<a href='#' class='btn-link btn-primary' onclick=editRow('" + full.ID + "'); >Update</a>";
+                    }
+                },
+                {
+                    data: null, render: function (data, type, row)
+                    {
+                        return '<a class="btn-link btn-primary" href="/Commitments/CostBreakdown/' + row.ID + '">Cost Breakdown</a>';
+                    }
+                },
+                {
+                    data: null, render: function (data, type, row)
+                    {
+                        return "<a href='#' class='btn-link btn-primary' onclick=viewDetailsRow('" + row.ID + "');>Present</a>";
+                    }
+                },
+                {
+                    data: null, render: function (data, type, row)
+                    {
+                        return "<a href='#' class='btn-link btn-primary' onclick=UploadFileRows('" + row.ID + "');>Attachments</a>";
+                    }
+                },
+            ]
+        });
+    });     
+
+    function DeleteData(CustomerID)
+    {
+        if (confirm("Are you sure you want to delete ...?"))
+        {
+            Delete(CustomerID);
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    function Delete(CustomerID)
+    {
+        var url = '@Url.Content("~/")' + "DemoGrid/Delete";
+        $.post(url, { ID: CustomerID }, function (data)
+        {
+            if (data)
+            {
+                oTable = $('#pendingCommitments').DataTable();
+                oTable.draw();
+            }
+            else
+            {
+                alert("Something Went Wrong!");
+            }
+        });
+    }
+
+</script>

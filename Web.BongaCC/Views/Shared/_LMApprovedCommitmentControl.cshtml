@@ -1,0 +1,148 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+
+<div class="container-fluid" style="overflow:auto">
+    <br />
+    <div style="width:100%; margin:0 auto;">
+        <table id="LMApprovedBudgets" class="table table-striped table-bordered dt-responsive" style="font-size:11px;width:100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>S/No</th>
+                    <th></th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.Comitmntno)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.sApprovalID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.Commitment)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.PONumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.POValue)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.PRNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.PRValue)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.CapexOpex)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.DirectAllocated)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.UapCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.UapRollUpCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.ActivityType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.ActivityCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.CostObject)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.Activity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.Contract)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.FocalPoint)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.ActivityOwner)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.LineManagerFullName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.oBudgetBookCommitment.Sponsor)
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+   $(document).ready(function ()
+    {
+       $("#LMApprovedBudgets").DataTable({
+            "aLengthMenu": [[25, 50, 75, -1], [25, 50, 75, "All"]],
+            "iDisplayLength": 25,
+
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url": "/Commitments/LoadLMApprovedCommitments",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columnDefs":
+            [{
+                "targets": [5,7,9], "className": "right",
+                "render": $.fn.dataTable.render.number(',', '.', 2),
+                //"visible": false,
+                "searchable": false
+            }],
+            "columns": [
+                {
+                    "data": "id",
+                    render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; },
+                    "autoWidth": true
+                },
+                {
+                    data: null, render: function (data, type, row)
+                    {
+                        return "<a href='#' class='btn-link btn-primary' onclick=viewApprovedDetailsRow('" + row.ID + "');>View</a>";
+                    }
+                },
+                { "data": "Comitmntno", "name": "Comitmntno", "autoWidth": true },
+                { "data": "title", "name": "title", "autoWidth": true },
+                {
+                    "data": "sApprovalID", "name": "sApprovalID", "autoWidth": true,
+                    //"data": "CCPSessionDate", "name": "CCPSessionDate", "autoWidth": true,
+                    //"render": function (value) {
+                    //    if (value === null) return "";
+                    //    return moment(value).format('DD-MMM-YYYY');
+                    //}
+                },
+                { "data": "Commitment", "name": "Commitment", "autoWidth": true, className: "text-right" },
+                { "data": "PONumber", "name": "PONumber", "autoWidth": true },
+                { "data": "POValue", "name": "POValue", "autoWidth": true, className: "text-right" },
+                { "data": "PRNumber", "name": "PRNumber", "autoWidth": true },
+                { "data": "PRValue", "name": "PRValue", "autoWidth": true, className: "text-right" },
+                { "data": "CapexOpex", "name": "CapexOpex", "autoWidth": true },
+                { "data": "sDirectAllocated", "name": "sDirectAllocated", "autoWidth": true },
+                { "data": "UapCode", "name": "UapCode", "autoWidth": true },
+                { "data": "UapRollUpCode", "name": "UapRollUpCode", "autoWidth": true },
+                { "data": "ActivityType", "name": "ActivityType", "autoWidth": true },
+                { "data": "ActivityCode", "name": "ActivityCode", "autoWidth": true },
+                { "data": "CostObject", "name": "CostObject", "autoWidth": true },
+                { "data": "Activity", "name": "Activity", "autoWidth": true },
+                { "data": "Contract", "name": "Contract", "autoWidth": true },
+                { "data": "FocalPoint", "name": "FocalPoint", "autoWidth": true },
+                { "data": "ActivityOwner", "name": "ActivityOwner", "autoWidth": true },
+                { "data": "LineManagerFullName", "name": "LineManagerFullName", "autoWidth": true },
+                { "data": "Sponsor", "name": "Sponsor", "autoWidth": true },
+            ]
+        });
+   });;
+
+</script>

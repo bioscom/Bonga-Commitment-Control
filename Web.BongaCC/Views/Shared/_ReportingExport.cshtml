@@ -1,0 +1,180 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+
+<br />
+
+<div style="font-size:11px">
+    @*<form asp-controller="Commitments" asp-action="">*@
+        <div class="col-md-4 row">
+            <b>Select Reporting Week Range</b>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4">
+                <div class="input-group date">
+                    <input id="RptWeekFrom" class="form-control datepicker" data-date-format="mm/dd/yyyy" />
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group date">
+                    <input id="RptWeekTo" class="form-control datepicker" data-date-format="mm/dd/yyyy" />
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label asp-for="oCommitment.wbsID" class="control-label"></label>
+            </div>
+            <div class="col-md-8">
+                <select id="ddlWbs" asp-for="oCommitment.wbsID" class="form-control input-sm selectpicker" data-live-search="true" asp-items="ViewBag.wbsID">
+                    <option selected>Select...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label asp-for="oCommitment.CapexOpex" class="control-label"></label>
+            </div>
+            <div class="col-md-8">
+                <select id="IdCapexOpex" asp-for="oCommitment.CapexOpex" class="form-control" asp-items="ViewBag.CapexOpex">
+                    <option selected>Select...</option>
+                </select>
+                <span asp-validation-for="oCommitment.CapexOpex" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label asp-for="oCommitment.teamID" class="control-label"></label>
+            </div>
+            <div class="col-md-8">
+                <select id="IdTeam" asp-for="oCommitment.teamID" class="form-control" asp-items="ViewBag.teamID">
+                    <option selected>Select...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label asp-for="oCommitment.assetID" class="control-label"></label>
+            </div>
+            <div class="col-md-8">
+                <select id="IdAsset" asp-for="oCommitment.assetID" class="form-control" asp-items="ViewBag.assetID">
+                    <option selected>Select...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label asp-for="oCommitment.facilityID" class="control-label"></label>
+            </div>
+            <div class="col-md-8">
+                <select id="IdFacility" asp-for="oCommitment.facilityID" class="form-control" asp-items="ViewBag.facilityID">
+                    <option selected>Select...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label asp-for="oCommitment.departmentID" class="control-label"></label>
+            </div>
+            <div class="col-md-8">
+                <select id="IdDept" asp-for="oCommitment.departmentID" class="form-control" asp-items="ViewBag.departmentID">
+                    <option selected>Select...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label asp-for="oCommitment.groupID" class="control-label"></label>
+            </div>
+            <div class="col-md-8">
+                <select id="IdGroup" asp-for="oCommitment.groupID" class="form-control" asp-items="ViewBag.groupID">
+                    <option selected>Select...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label asp-for="oCommitment.vehicleID" class="control-label"></label>
+            </div>
+            <div class="col-md-8">
+                <select id="IdVehicle" asp-for="oCommitment.vehicleID" class="form-control" asp-items="ViewBag.vehicleID">
+                    <option selected>Select...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label asp-for="oCommitment.typeID" class="control-label"></label>
+            </div>
+            <div class="col-md-8">
+                <select id="IdType" asp-for="oCommitment.typeID" class="form-control" asp-items="ViewBag.typeID">
+                    <option selected>Select...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label asp-for="oCommitment.statusID" class="control-label"></label>
+            </div>
+            <div class="col-md-8">
+                <select id="IdStatus" asp-for="oCommitment.statusID" class="form-control" asp-items="ViewBag.statusID">
+                    <option selected>Select...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-8">
+                <button id="ExportBtn" class="btn btn-primary form-control rounded-0">Export To Excel</button>
+            </div>
+        </div>
+    @*</form>*@
+</div>
+
+
+<script type="text/javascript">
+
+    //Source: https://stackoverflow.com/questions/4078553/ajax-call-on-onchange-event-in-mvc
+    $("#ExportBtn").click(function () {
+        var IdCostObject = $("#ddlWbs").val();
+        var IdCapexOpex = $("#IdCapexOpex").val();
+        var IdTeam = $("#IdTeam").val();
+        var IdAsset = $("#IdAsset").val();
+        var IdFacility = $("#IdFacility").val();
+        var IdDept = $("#IdDept").val();
+        var IdGroup = $("#IdGroup").val();
+        var IdVehicle = $("#IdVehicle").val();
+        var IdType = $("#IdType").val();
+        var IdStatus = $("#IdStatus").val();
+
+        alert("Are you sure you want to export this report?");
+        $.ajax({
+            url: "Commitments/ExporttoExcel/",
+            data: { IdCostObject: IdCostObject, IdCapexOpex: IdCapexOpex, IdTeam: IdTeam, IdAsset: IdAsset, IdFacility: IdFacility, IdDept: IdDept, IdGroup: IdGroup, IdVehicle: IdVehicle, IdType: IdType, IdStatus: IdStatus /* add other additional parameters */ },
+            cache: false,
+            type: "GET",
+            dataType: "html",
+
+            success: function (data, textStatus, XMLHttpRequest) {
+                //$("#detailsModalWrapper").html(data); // HTML DOM replace
+            }
+        });
+    });
+</script>

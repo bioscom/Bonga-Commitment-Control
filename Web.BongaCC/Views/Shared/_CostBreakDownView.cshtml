@@ -1,0 +1,119 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+@using Web.BongaCC.Codes;
+
+@*<div class="panel panel-default">
+    <div class="panel-heading panel-head">Cost Breakdown</div>
+    <div class="panel-body">*@
+<table class="table-striped table-bordered table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>S/No.</th>
+            <th>
+                @Html.DisplayNameFor(model => model.CostBreakdown.Description)
+            </th>
+            <th>
+                Currency
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CostBreakdown.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CostBreakdown.Rate)
+            </th>
+            <th>
+                &#8358; @Html.DisplayNameFor(model => model.CostBreakdown.FixedExchangeRate)
+            </th>
+            <th>
+                Amount(F'$)
+            </th>
+            @*<th colspan="2" style="width:70px"></th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.lstCostBreakdown != null)
+        {
+            @foreach (var item in Model.lstCostBreakdown.Select((x, i) => new { Data = x, Index = i + 1 }))
+            {
+                <tr>
+                    <td>
+                        @item.Index
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Data.Description)
+                    </td>
+                    <td>
+                        @if (item.Data.CurrencyName.ToUpper() == "Naira".ToUpper())
+                        {
+                            <b style="color:green">@Html.DisplayFor(modelItem => item.Data.CurrencyName)</b>
+                        }
+                        else
+                        {
+                            <b style="color:darkred">@Html.DisplayFor(modelItem => item.Data.CurrencyName)</b>
+                        }
+                    </td>
+                    <td>
+                        <div class="pull-right">
+                            @string.Format("{0:N}", @item.Data.Quantity)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="pull-right">
+                            @string.Format("{0:N}", @item.Data.Rate)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="pull-right">
+                            @string.Format("{0:N}", @item.Data.FixedExchangeRate)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="pull-right">
+                            @string.Format("{0:N}", Convert.ToDecimal(@item.Data.Calculated))
+                            @*@string.Format("{0:N}", @item.Data.Calculated)*@
+                        </div>
+                    </td>
+
+                    @*<td>
+                            <div class="pull-right">
+                                @string.Format("{0:N}", Convert.ToDecimal(@item.Data.Calculated))
+                            </div>
+                        </td>*@
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        @{
+            decimal? totalSum = 0.00M;
+
+            @if (Model.lstCostBreakdown != null)
+            {
+                foreach (var item in Model.lstCostBreakdown)
+                {
+                    totalSum += @item.Calculated;
+                }
+            }
+
+            <tr>
+                <th>
+
+                </th>
+                <td>
+                    <b>
+                        Total
+                    </b>
+                </td>
+                <td></td>
+                <td colspan="4">
+                    <div class="pull-right">
+                        <b>
+                            @string.Format("{0:N}", totalSum)
+                        </b>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tfoot>
+</table>
+@*</div>
+    </div>*@

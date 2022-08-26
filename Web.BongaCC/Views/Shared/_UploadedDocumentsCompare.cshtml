@@ -1,0 +1,104 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+
+<table class="table table-condensed table-hover table-bordered" style="font-size:12px">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FileUpload.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileUpload.FileNames)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileUpload.UploadDT)
+            </th>
+            <th class="text-center">
+                File Upload Size (KByte)
+                @*@Html.DisplayNameFor(model => model.FileUpload.UploadFilesSize)*@
+            </th>
+            @*<th></th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.LstUploadFiles != null)
+        {
+            foreach (var item in Model.LstUploadFiles)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Download" asp-route-id="@item.ID">@item.Title</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FileNames)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadDT)
+                    </td>
+                    <td class="text-right">
+                        @string.Format("{0:N}", item.UploadFilesSize / 1024)
+                    </td>
+                    
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">
+                <b>Total File(s) upload size</b>
+            </td>
+            <td class="text-right">
+
+                @{
+                    var totalFileSize = 0.0M;
+                }
+
+                @if (Model.LstUploadFiles != null)
+                {
+                    foreach (var item in Model.LstUploadFiles)
+                    {
+                        totalFileSize += item.UploadFilesSize;
+                    }
+                }
+                <b>@string.Format("{0:N}", (totalFileSize / 1024))</b>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+
+
+@*<table class="table table-condensed table-hover table-bordered" style="font-size:12px">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FileUpload.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileUpload.UploadDT)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.FileUpload.UploadFilesSize)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.LstUploadFiles != null)
+        {
+            foreach (var item in Model.LstUploadFilesCompare)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Download" asp-route-id="@item.ID">@item.Title</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadDT)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.UploadFilesSize)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>*@

@@ -1,0 +1,20 @@
+﻿@model Web.BongaCC.ViewModels.WBSViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="CostObjects" class="control-label"></label>
+            <input asp-for="CostObjects" class="form-control" />
+            <span asp-validation-for="CostObjects" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CostObjectsDescription" class="control-label"></label>
+            <input asp-for="CostObjectsDescription" class="form-control" />
+            <span asp-validation-for="CostObjectsDescription" class="text-danger"></span>
+        </div>
+
+        <input type="hidden" asp-for="ID" />
+    </div>
+</div>

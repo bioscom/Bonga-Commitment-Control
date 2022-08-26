@@ -1,0 +1,230 @@
+﻿@model Web.BongaCC.ViewModels.ApprovalDecisionsViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdministrator.cshtml";
+}
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div id="createModal" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Add Approval Decision</h4>
+            </div>
+            <form id="iForm" asp-action="AddEdit" asp-controller="ApprovalDecisions" onsubmit="Submit.disabled = true; return true;">
+                <div id="ModalWrapper" class="modal-body">
+                    @await Html.PartialAsync("_UpdateApprovalDecision")
+                </div>
+                <div class="modal-footer">
+                    <button id="Submit" class="btn btn-primary rounded-0">Submit</button>
+                    <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="editModal" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Edit Approval Decision</h4>
+            </div>
+            <form id="iFormEdit" asp-action="AddEdit" asp-controller="ApprovalDecisions" onsubmit="editSubmit.disabled = true; return true;">
+                <div id="editModalWrapper" class="modal-body">
+                    @await Html.PartialAsync("_UpdateApprovalDecision")
+                </div>
+                <div class="modal-footer">
+                    <button id="editSubmit" class="btn btn-primary rounded-0">Update</button>
+                    <button type="button" class="btn btn-danger rounded-0" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Approval Decisions
+    </div>
+    <div class="panel-body">
+        <p>
+            <button style="margin-bottom:10px;" type="button" data-target="#createModal" data-toggle="modal" class="btn btn-danger btn-sm rounded-0"><i class="fa fa-plus-circle"></i> Add New Approval Decision</button>
+        </p>
+
+        <div class="container-fluid" style="overflow:auto">
+            <br />
+            <div style="width:100%; margin:0 auto;">
+                <table id="decisions" class="table table-striped table-bordered dt-responsive" style="font-size:11px;width:100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>
+                                S/No
+                            </th>
+                            @*<th></th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.Decision)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ColorCode)
+                            </th>
+                            @*<th></th>*@
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            alert("@TempData["Message"]");
+        };
+    </script>
+}
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#decisions").DataTable({
+            "aLengthMenu": [[25, 50, 75, -1], [25, 50, 75, "All"]],
+            "iDisplayLength": 25,
+
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url": "/ApprovalDecisions/LoadData",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columnDefs":
+                [{
+                    //"targets": [4, 5, 6], "className": "right",
+                    //"render": $.fn.dataTable.render.number(',', '.', 2),
+                    //"visible": false,
+                    "searchable": false
+                }],
+            "columns": [
+                {
+                    "data": "id",
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+                //{
+                //    "render": function (data, type, full, meta) {
+                //        return "<a href='#' class='btn-link btn-primary' onclick=editRow('" + full.ID + "'); >Edit</a>";
+                //    }
+                //},
+                { "data": "Decision", "name": "Decision", "autoWidth": true },
+                { "data": "ColorCode", "name": "ColorCode", "autoWidth": true },
+                //{
+                //    data: null, render: function (data, type, row) {
+                //        return "<a href='#' class='btn-link btn-primary' onclick=DeleteData('" + row.ID + "');>Delete</a>";
+                //    }
+                //},
+            ]
+        });
+    });
+
+    function editRow(Id) {
+        var mymodal = $("#editModal");
+        $.ajax({
+            url: '/ApprovalDecisions/Edit/' + Id, // The method name + paramater
+            success: function (data) {
+                $('#editModalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                mymodal.modal("show");
+            }
+        });
+    }
+
+    function DeleteData(id) {
+        if (confirm("Are you sure you want to delete ...?")) {
+            Delete(id);
+        }
+        else {
+            return false;
+        }
+    }
+
+    function Delete(id) {
+        var url = "/ApprovalDecisions/Delete";
+        $.post(url, { ID: id }, function (data) {
+            if (data) {
+                oTable = $('#decisions').DataTable();
+                oTable.draw();
+            }
+            else {
+                alert("Something Went Wrong!");
+            }
+        });
+    }
+
+</script>
+
+
+
+
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Decision)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ColorCode)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Decision)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ColorCode)
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <br />
+    <br />*@

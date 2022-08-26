@@ -1,0 +1,202 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <!--<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="Telerik.UI.for.AspNet.Core.Trial" Version="2019.3.1023" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Telerik.Documents.Core.Trial" Version="2019.3.1021" />
+    <PackageReference Include="Telerik.Documents.Fixed.Trial" Version="2019.3.1021" />
+    <PackageReference Include="Telerik.Documents.Flow.Trial" Version="2019.3.1021" />
+    <PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf.Trial" Version="2019.3.1021" />
+    <PackageReference Include="Telerik.Documents.SpreadsheetStreaming.Trial" Version="2019.3.1021" />
+    <PackageReference Include="Telerik.Zip.Trial" Version="2019.3.1021" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0" />
+
+    <PackageReference Include="EPPlus.Core" Version="1.5.4" />
+    <PackageReference Include="jQuery" Version="3.4.1" />
+    <PackageReference Include="MailKit" Version="2.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="3.2.435" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EF.BongaCC.Core\EF.BongaCC.Core.csproj" />
+    <ProjectReference Include="..\EF.BongaCC.Data\EF.BongaCC.Data.csproj" />
+    <ProjectReference Include="..\EF.Utilities\EF.Utilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Filters\**" />
+    <Compile Remove="Views\ActivityCodesOld\**" />
+    <Content Remove="Filters\**" />
+    <Content Remove="Views\ActivityCodesOld\**" />
+    <EmbeddedResource Remove="Filters\**" />
+    <EmbeddedResource Remove="Views\ActivityCodesOld\**" />
+    <None Remove="Filters\**" />
+    <None Remove="Views\ActivityCodesOld\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\ActivityCodesOldController.cs" />
+    <Compile Remove="Controllers\ReportsController.cs" />
+    <Compile Remove="Extensions\HtmlExtensions.cs" />
+    <Compile Remove="Extensions\ServiceCollectionExtensions.cs" />
+    <Compile Remove="Helpers\CreatePdfWithBarChart.cs" />
+    <Compile Remove="ViewModels\BudgetBookCommitment2ViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Commitments\Create.cshtml" />
+    <Content Remove="Views\Commitments\Delete.cshtml" />
+    <Content Remove="Views\Commitments\Details.cshtml" />
+    <Content Remove="Views\Commitments\Edit.cshtml" />
+    <Content Remove="Views\Shared\_ACommitmentInfo.cshtml" />
+    <Content Remove="Views\Shared\_ApprovalDecisionCompare.cshtml" />
+    <Content Remove="Views\Shared\_CCDetailsView.cshtml" />
+    <Content Remove="Views\Shared\_CCPanelSession.cshtml" />
+    <Content Remove="Views\Shared\_PendingCommitmentControl.cshtml" />
+    <Content Remove="Views\Shared\_ReportingExport.cshtml" />
+    <Content Remove="Views\Shared\_ZCCDetails2.cshtml" />
+    <Content Remove="Views\Shared\_ZCCDetailsCompare.cshtml" />
+    <Content Remove="Views\Shared\_ZCommitmentControlForm.cshtml" />
+    <Content Remove="wwwroot\js\bootstrap-datetimepicker.min.js" />
+    <Content Remove="wwwroot\js\moment.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="libwkhtmltox.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="libwkhtmltox.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Views\Shared\Template\" />
+    <Folder Include="wwwroot\TempFolder\" />
+    <Folder Include="wwwroot\EmailTemplate\" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Commitments\CCPSession.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_CorpApproved.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_CorpPending.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_CorpRejected.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_LayoutCCPanel.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_LayoutReviewers.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_AOApprovedCommitmentControl.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_AOPendingBudgetCommitmentControl.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_AOPendingBudgetCommitmentControlSentForApproval.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_AORejectedCommitmentControl.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_sent4ApprovalCommitmentControlPresentationForm.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_LMApprovedCommitmentControl.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_LMPendingBudgetCommitmentControl.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_LMRejectedCommitmentControl.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_LMPendingBudgetCommitmentControlSentForApproval.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_AppHeaderAdministrator.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_AppMenuAdmin.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_ApprovalDecisionView.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_CCPSessionApprovedCommitmentControl.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_CCBBDetails.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_ApprovedCommitmentControlPresentationForm.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_LayoutAdministrator.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_ApproverApprovedCommitmentControl.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_CCPSessionPendingBudgetCommitmentControl.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_FocalPointPendingBudgetCommitmentControlSentForApproval.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_CCPSessionRejectedCommitmentControl.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_ApproverRejectedCommitmentControl.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_ApproverPendingCommitmentControl.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_FocalPointPendingBudgetCommitmentControl.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_Reporters.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_AddUser.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_UploadedDocumentsCompare.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
+</Project>

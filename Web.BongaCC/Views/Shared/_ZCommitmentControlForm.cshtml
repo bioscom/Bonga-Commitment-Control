@@ -1,0 +1,380 @@
+﻿@model Web.BongaCC.ViewModels.CommitmentControlViewModel
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<input type="hidden" asp-for="@Model.oCommitment.ID" />
+<input type="hidden" asp-for="@Model.oCommitment.comitmntno" />
+
+<div style="margin: 10px; font-size:11px">
+    @*<div style="margin: 20px; font-size:11px; border-bottom:solid 1px silver;border-left:solid 1px silver;border-right:solid 1px silver">*@
+    <div class="form-group row">
+        <div class="col-md-2">
+            <label asp-for="oCommitment.title" class="control-label"></label>
+        </div>
+        <div class="col-md-10">
+            <textarea asp-for="oCommitment.title" class="form-control" rows="5" cols="100"></textarea>
+            @*<input asp-for="oCommitment.title" class="form-control" />*@
+            <span asp-validation-for="oCommitment.title" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-6">
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.wbsID" class="control-label"></label>
+                </div>
+                <div class="col-md-8">
+                    <select id="ddlWbs" asp-for="oCommitment.wbsID" class="form-control selectpicker" data-live-search="true" asp-items="ViewBag.wbsID">
+                        <option value="0" disabled selected>--- SELECT ---</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.groupID" class="control-label"></label>
+                </div>
+                <div class="col-md-8">
+                    <select asp-for="oCommitment.groupID" class="form-control" asp-items="ViewBag.groupID">
+                        <option disabled selected>--- SELECT ---</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.vehicleID" class="control-label"></label>
+                </div>
+                <div class="col-md-8">
+                    <select asp-for="oCommitment.vehicleID" class="form-control" asp-items="ViewBag.vehicleID">
+                        <option disabled selected>--- SELECT ---</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.typeID" class="control-label"></label>
+                </div>
+                <div class="col-md-8">
+                    <select asp-for="oCommitment.typeID" class="form-control" asp-items="ViewBag.typeID">
+                        <option disabled selected>--- SELECT ---</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.statusID" class="control-label"></label>
+                </div>
+                <div class="col-md-8">
+                    <select asp-for="oCommitment.statusID" class="form-control" asp-items="ViewBag.statusID">
+                        <option disabled selected>--- SELECT ---</option>
+                    </select>
+                </div>
+            </div>
+            @*<b>
+                    Activity Period:
+                </b>*@
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.periodfrom" class="control-label"></label>
+                </div>
+                <div class="col-md-8 input-group date pull-left">
+                    <input asp-for="oCommitment.periodfrom" class="form-control datepicker" data-date-format="mm/dd/yyyy" />
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th"></span>
+                    </div>
+                    <span asp-validation-for="oCommitment.periodfrom" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.sponsorID" class="control-label"></label>
+                </div>
+                <div class="col-md-8">
+                    <select asp-for="oCommitment.sponsorID" class="form-control" asp-items="ViewBag.sponsorID">
+                        <option disabled selected>--- SELECT ---</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.PRNumber" class="control-label"></label>
+                </div>
+                <div class="col-md-8">
+                    <input asp-for="oCommitment.PRNumber" class="form-control" />
+                    <span asp-validation-for="oCommitment.PRNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.PONumber" class="control-label"></label>
+                </div>
+                <div class="col-md-8">
+                    <input asp-for="oCommitment.PONumber" class="form-control" />
+                    <span asp-validation-for="oCommitment.PONumber" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.CapexOpex" class="control-label"></label>
+                </div>
+                <div class="col-md-8">
+                    <select asp-for="oCommitment.CapexOpex" class="form-control" asp-items="ViewBag.CapexOpex">
+                        <option disabled selected>--- SELECT ---</option>
+                    </select>
+                    <span asp-validation-for="oCommitment.CapexOpex" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.teamID" class="control-label"></label>
+                </div>
+                <div class="col-md-8">
+                    <select asp-for="oCommitment.teamID" class="form-control" asp-items="ViewBag.teamID">
+                        <option disabled selected>--- SELECT ---</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.assetID" class="control-label"></label>
+                </div>
+                <div class="col-md-8">
+                    <select asp-for="oCommitment.assetID" class="form-control" asp-items="ViewBag.assetID">
+                        <option disabled selected>--- SELECT ---</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.facilityID" class="control-label"></label>
+                </div>
+                <div class="col-md-8">
+                    <select asp-for="oCommitment.facilityID" class="form-control" asp-items="ViewBag.facilityID">
+                        <option disabled selected>--- SELECT ---</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.departmentID" class="control-label"></label>
+                </div>
+                <div class="col-md-8">
+                    <select asp-for="oCommitment.departmentID" class="form-control" asp-items="ViewBag.departmentID">
+                        <option disabled selected>--- SELECT ---</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.periodto" class="control-label"></label>
+                </div>
+                <div class="col-md-8 input-group date pull-left">
+                    <input asp-for="oCommitment.periodto" class="form-control datepicker" data-date-format="mm/dd/yyyy" />
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th"></span>
+                    </div>
+                    <span asp-validation-for="oCommitment.periodto" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.checkedbyID" class="control-label"></label>
+                </div>
+                <div class="col-md-8">
+                    <select asp-for="oCommitment.checkedbyID" class="form-control" asp-items="ViewBag.checkedbyID">
+                        <option disabled selected>--- SELECT ---</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.PRValue" class="control-label"></label>
+                </div>
+                <div class="col-md-8 input-group">
+                    <span class="input-group-addon">$</span>
+                    <input asp-for="oCommitment.PRValue" id="prvalue" type="text" class="form-control txtnumval" onpaste="return false;" />
+                    <span asp-validation-for="oCommitment.PRValue" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.POValue" class="control-label"></label>
+                </div>
+                <div class="col-md-8 input-group">
+                    <span class="input-group-addon">$</span>
+                    <input asp-for="oCommitment.POValue" id="povalue" type="text" class="form-control txtnumval" onpaste="return false;" />
+                    <span asp-validation-for="oCommitment.POValue" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="oCommitment.commitment" class="control-label"></label>
+                </div>
+                <div class="col-md-8 input-group">
+                    <span class="input-group-addon">$</span>
+                    <input asp-for="oCommitment.commitment" id="commit" type="text" class="form-control txtnumval" onpaste="return false;" />
+                    <span asp-validation-for="oCommitment.commitment" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="form-group row">
+            <div class="col-md-6">
+                <input class="datepicker" data-date-format="mm/dd/yyyy">
+            </div>
+        </div>*@
+
+    <div class="form-group row">
+        <div class="col-md-2">
+            <label asp-for="oCommitment.justification" class="control-label"></label>
+        </div>
+        <div class="col-md-10">
+            <textarea asp-for="oCommitment.justification" class="form-control" rows="5" cols="120"></textarea>
+            <span asp-validation-for="oCommitment.justification" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-2">
+            <label asp-for="oCommitment.threat" class="control-label"></label>
+        </div>
+        <div class="col-md-10">
+            <textarea asp-for="oCommitment.threat" class="form-control" rows="5" cols="120"></textarea>
+            <span asp-validation-for="oCommitment.threat" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    //$(document).ready(function () {
+    //    $('.datepicker').datepicker({
+    //        format: 'dd-M-yyyy',
+    //        //startDate: '-3d'
+    //    })
+    //});
+
+    $(document).ready(function () {
+        $('.selectpicker').selectpicker();
+    });
+
+    // JQUERY ".Class" SELECTOR.
+    $(document).ready(function () {
+        $('.txtnumval').keypress(function (event) {
+            return isNumber(event, this)
+        });
+    });
+
+    // THE SCRIPT THAT CHECKS IF THE KEY PRESSED IS A NUMERIC OR DECIMAL VALUE.
+    function isNumber(evt, element) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (
+            (charCode != 45 || $(element).val().indexOf('-') != -1) && // “-” CHECK MINUS, AND ONLY ONE.
+            (charCode != 46 || $(element).val().indexOf('.') != -1) && // “.” CHECK DOT, AND ONLY ONE.
+            (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+
+
+
+
+
+
+
+//function isNumber(evt) {
+//    evt = (evt) ? evt : window.event;
+//    var charCode = (evt.which) ? evt.which : evt.keyCode;
+//    if ((charCode > 31 && charCode < 48) || charCode > 57) {
+//        return false;
+//    }
+
+//    return true;
+//}
+
+
+//(function ($, undefined) {
+
+//    "use strict";
+
+//    // When ready.
+//    $(function () {
+
+//        var $form = $("#iFormCreate");
+//        var $input = $form.find("input");
+
+//        $input.on("keyup", function (event) {
+
+//            // When user select text in the document, abort.
+
+//            var selection = window.getSelection().toString();
+//            if (selection !== '') {
+//                return;
+//            }
+
+//            // When the arrow keys are pressed, abort.
+//            if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) {
+//                return;
+//            }
+
+//            var $this = $(this);
+
+//            // Get the value.
+//            var input = $this.val();
+
+//            var input = input.replace(/[\D\s\._\-]+/g, "");
+//            //var input = input.replace(/^(\d+|\d+\.\d+)$/, "");
+//            //var input = input.replace(/[^\d]*/g,'').replace(/\d(?=(\d{3})+$)/g, '$');
+
+//            input = input ? parseInt(input, 10) : 0;
+
+//            $this.val(function () {
+//                return (input === 0) ? "" : input.toLocaleString("en-US");
+//            });
+//        });
+
+//        /**
+//         * ==================================
+//         * When Form Submitted
+//         * ==================================
+//         */
+//        $form.on("submit", function (event) {
+
+//            var $this = $(this);
+//            var arr = $this.serializeArray();
+
+//            for (var i = 0; i < arr.length; i++) {
+//                arr[i].value = arr[i].value.replace(/[($)\s\._\-]+/g, ''); // Sanitize the values.
+//            };
+
+//            console.log(arr);
+
+//            event.preventDefault();
+//        });
+//    });
+//})(jQuery);
+
+// onkeypress="return isNumber(event)"
+</script>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
